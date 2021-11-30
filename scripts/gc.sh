@@ -1,4 +1,12 @@
 #! /bin/bash
+###
+ # @Description: 
+ # @Author: 华松林
+ # @Date: 2021-11-29 15:58:42
+ # @LastEditors: 华松林
+ # @LastEditTime: 2021-11-30 16:42:14
+ # @FilePath: /finches-ui/scripts/gc.sh
+### 
 
 NAME=$1
 
@@ -51,19 +59,18 @@ export default defineComponent({
 EOF
 
 cat <<EOF >"$DIRNAME/index.ts"
-import { App } from 'vue'
-import ${NAME} from './src/index.vue'
+import { withInstall } from "@finches-ui/utils/with-install";
 
-${NAME}.install = (app: App): void => {
-  app.component(${NAME}.name, ${NAME})
-}
+import ${NAME} from "./src/index.vue"
 
-export default ${NAME}
+export const Cb${NAME} = withInstall(${NAME});
+export default Cb${NAME};
+
 EOF
 
 cat > $DIRNAME/__tests__/$INPUT_NAME.spec.ts <<EOF
 import { mount } from '@vue/test-utils'
-import $NAME from '../src/index.vue'
+import $NAME from '../src/$NAME.vue'
 
 const AXIOM = 'Rem is the best girl'
 

@@ -69,10 +69,48 @@ body {
    npm login
    ```
 
-2. publish
+2. 提交代码到 git 仓库
+
+   ```shell
+   git add .
+   git commit -m ''
+   git push
+   ```
+
+3. publish
 
    ```shell
    pnpm -r publish --access public
+   ```
+
+   
+
+## 如何在项目中使用 finches-ui 组件库
+
+1. 安装
+
+   ```shell
+   yarn add @cblink/finches-ui
+   ```
+
+2. 在 vue 文件中引入
+
+   ```vue
+   <template>
+     <div class="page-index">
+       <CbTest />
+     </div>
+   </template>
+   
+   <script lang="ts">
+     import { defineComponent } from 'vue'
+     import { CbTest } from '@cblink/finches-ui'
+     export default defineComponent({
+       components: {
+         CbTest,
+       }
+     })
+   </script>
    ```
 
    

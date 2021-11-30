@@ -3,32 +3,35 @@
  * @Author: 华松林
  * @Date: 2021-11-29 15:44:22
  * @LastEditors: 华松林
- * @LastEditTime: 2021-11-30 14:09:04
+ * @LastEditTime: 2021-11-30 17:47:23
  * @FilePath: /finches-ui/play/vite.config.ts
  */
-import path from "path";
-import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
-// import Components from "unplugin-vue-components/vite";
-// import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-import Inspect from "vite-plugin-inspect";
-import glob from "fast-glob";
-import { epRoot, pkgRoot, projRoot } from "../build/utils/paths";
-import "./vite.init";
+import path from 'path'
+
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import Components from 'unplugin-vue-components/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import Inspect from 'vite-plugin-inspect'
+import glob from 'fast-glob'
+import { epRoot, pkgRoot, projRoot } from '../build/utils/paths'
+import './vite.init'
+
+import vueJsx from '@vitejs/plugin-vue-jsx'
 
 export default defineConfig(async () => {
   const optimizeDeps = (
-    await glob(["lodash/*.js", "dayjs/(locale|plugin)/*.js"], {
-      cwd: path.resolve(projRoot, "node_modules"),
+    await glob(['lodash/*.js', 'dayjs/(locale|plugin)/*.js'], {
+      cwd: path.resolve(projRoot, 'node_modules'),
     })
-  ).map((dep) => dep.replace(/\.js$/, ""));
+  ).map((dep) => dep.replace(/\.js$/, ''))
 
   return {
     resolve: {
       alias: [
         {
           find: /^finches-ui(\/(es|lib))?$/,
-          replacement: path.resolve(epRoot, "index.ts"),
+          replacement: path.resolve(epRoot, 'index.ts'),
         },
         {
           find: /^finches-ui\/(es|lib)\/(.*)$/,
@@ -40,29 +43,30 @@ export default defineConfig(async () => {
     //   host: true,
     // },
     server: {
-      host: "0.0.0.0",
+      host: '0.0.0.0',
       port: 3333,
     },
     plugins: [
       vue(),
-      // Components({
-      //   include: `${__dirname}/**`,
-      //   resolvers: ElementPlusResolver({ importStyle: 'sass' }),
-      // }),
+      vueJsx(),
+      Components({
+        include: `${__dirname}/**`,
+        resolvers: ElementPlusResolver({ importStyle: 'sass' }),
+      }),
       Inspect(),
     ],
 
     optimizeDeps: {
       include: [
-        "@vue/shared",
-        "@vueuse/core",
-        "async-validator",
-        "memoize-one",
-        "normalize-wheel-es",
-        "@popperjs/core",
-        "dayjs",
+        '@vue/shared',
+        '@vueuse/core',
+        'async-validator',
+        'memoize-one',
+        'normalize-wheel-es',
+        '@popperjs/core',
+        'dayjs',
         ...optimizeDeps,
       ],
     },
-  };
-});
+  }
+})
