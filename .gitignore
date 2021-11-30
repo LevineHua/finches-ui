@@ -9,7 +9,7 @@ node_modules
 .DS_Store
 
 # Bundle
-dist
+# dist
 coverage
 packages/element-plus/version.ts
 

@@ -3,7 +3,7 @@
  * @Author: 华松林
  * @Date: 2021-11-29 15:44:22
  * @LastEditors: 华松林
- * @LastEditTime: 2021-11-30 10:03:56
+ * @LastEditTime: 2021-11-30 14:09:04
  * @FilePath: /finches-ui/play/vite.config.ts
  */
 import path from "path";
@@ -36,8 +36,12 @@ export default defineConfig(async () => {
         },
       ],
     },
+    // server: {
+    //   host: true,
+    // },
     server: {
-      host: true,
+      host: "0.0.0.0",
+      port: 3333,
     },
     plugins: [
       vue(),

@@ -13,7 +13,9 @@
     "gen": "bash ./scripts/gc.sh",
     "build": "gulp --require sucrase/register/ts -f build/gulpfile.ts",
     "clean": "pnpm run clean:lib && pnpm run clean -r --stream",
-    "clean:lib": "rimraf dist"
+    "clean:lib": "rimraf dist",
+    "gen:version": "sucrase-node scripts/gen-version.ts",
+    "update:version": "sucrase-node scripts/update-version.ts"
   },
   "lint-staged": {
     "*.{vue,js,ts,jsx,tsx}": "eslint --fix"

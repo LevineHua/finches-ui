@@ -59,3 +59,20 @@ body {
 
 ```
 
+
+
+## 如何发布 finches-ui 组件库？
+
+1. 登录 npm
+
+   ```shell
+   npm login
+   ```
+
+2. publish
+
+   ```shell
+   pnpm -r publish --access public
+   ```
+
+   
