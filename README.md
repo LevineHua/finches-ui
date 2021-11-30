@@ -63,7 +63,15 @@ body {
 
 ## 如何发布 finches-ui 组件库？
 
-1. 登录 npm
+1. 修改版本号
+
+2. 打包
+
+   ```shell
+   pnpm build
+   ```
+
+3. 如果第一次发布则先登录 npm
 
    ```shell
    npm login
