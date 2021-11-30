@@ -56,6 +56,9 @@
     "attributes": "attributes.json"
   },
   "web-types": "web-types.json",
+  "files": [
+    "dist"
+  ],
   "browserslist": [
     "> 1%",
     "not ie 11",
