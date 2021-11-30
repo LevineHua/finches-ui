@@ -1,4 +1,4 @@
-/*! Element Plus v0.0.0-dev.3 */
+/*! Element Plus v0.0.0-dev.4 */
 
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('vue')) :
@@ -6,7 +6,7 @@
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.ElementPlus = {}, global.Vue));
 })(this, (function (exports, vue) { 'use strict';
 
-  const version$1 = "0.0.0-dev.3";
+  const version$1 = "0.0.0-dev.4";
 
   const makeInstaller = (components = []) => {
     const apps = [];

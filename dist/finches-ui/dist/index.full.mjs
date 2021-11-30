@@ -1,8 +1,8 @@
-/*! Element Plus v0.0.0-dev.3 */
+/*! Element Plus v0.0.0-dev.4 */
 
 import { defineComponent, openBlock, createElementBlock, renderSlot, createTextVNode } from 'vue';
 
-const version$1 = "0.0.0-dev.3";
+const version$1 = "0.0.0-dev.4";
 
 const makeInstaller = (components = []) => {
   const apps = [];

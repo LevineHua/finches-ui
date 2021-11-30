@@ -1,1 +1,1 @@
-{"version":3,"file":"version.js","sources":["../../../packages/finches-ui/version.ts"],"sourcesContent":["export const version = \"0.0.0-dev.3\";\n"],"names":[],"mappings":";;;;MAAa,UAAU;;;;"}
+{"version":3,"file":"version.js","sources":["../../../packages/finches-ui/version.ts"],"sourcesContent":["export const version = \"0.0.0-dev.4\";\n"],"names":[],"mappings":";;;;MAAa,UAAU;;;;"}
