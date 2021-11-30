@@ -3,7 +3,7 @@
  * @Author: 华松林
  * @Date: 2021-11-29 15:47:17
  * @LastEditors: 华松林
- * @LastEditTime: 2021-11-30 10:00:52
+ * @LastEditTime: 2021-11-30 15:53:29
  * @FilePath: /finches-ui/build/utils/paths.ts
  */
 import { resolve } from "path";
@@ -20,7 +20,8 @@ export const utilRoot = resolve(pkgRoot, "utils");
 export const docRoot = resolve(projRoot, "docs");
 
 /** dist */
-export const buildOutput = resolve(projRoot, "dist");
+// export const buildOutput = resolve(projRoot, "dist");
+export const buildOutput = resolve(projRoot, "packages/finches-ui/dist");
 /** dist/finches-ui */
 export const epOutput = resolve(buildOutput, "finches-ui");
 

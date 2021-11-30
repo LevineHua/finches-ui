@@ -3,7 +3,7 @@
  * @Author: 华松林
  * @Date: 2021-11-29 18:06:33
  * @LastEditors: 华松林
- * @LastEditTime: 2021-11-30 10:00:25
+ * @LastEditTime: 2021-11-30 16:00:16
  * @FilePath: /finches-ui/build/full-bundle.ts
  */
 import path from "path";
@@ -50,13 +50,13 @@ export const buildFull = (minify: boolean) => async () => {
     ],
     external: await generateExternal({ full: true }),
   });
-  const banner = `/*! Element Plus v${version} */\n`;
+  const banner = `/*! Finches Ui v${version} */\n`;
   await writeBundles(bundle, [
     {
       format: "umd",
       file: path.resolve(epOutput, `dist/index.full${minify ? ".min" : ""}.js`),
       exports: "named",
-      name: "ElementPlus",
+      name: "FinchesUi",
       globals: {
         vue: "Vue",
       },
