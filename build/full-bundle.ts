@@ -3,7 +3,7 @@
  * @Author: 华松林
  * @Date: 2021-11-29 18:06:33
  * @LastEditors: 华松林
- * @LastEditTime: 2021-12-01 15:09:57
+ * @LastEditTime: 2021-12-01 15:16:50
  * @FilePath: /finches-ui/build/full-bundle.ts
  */
 import path from 'path'
@@ -43,6 +43,7 @@ export const buildFull = (minify: boolean) => async () => {
         target: 'es2018',
         jsxFactory: 'h',
         jsxFragment: 'Fragment',
+        jsxInject: "import { h } from 'vue'",
       }),
       replace({
         'process.env.NODE_ENV': JSON.stringify('production'),
