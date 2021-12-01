@@ -1,4 +1,4 @@
-import { defineComponent, toRefs, computed, unref, h } from 'vue';
+import { isVNode, defineComponent, toRefs, computed, unref, createVNode, mergeProps, withDirectives, vShow } from 'vue';
 import '../../../../../node_modules/.pnpm/element-plus@1.2.0-beta.4_vue@3.2.22/node_modules/element-plus/es/index.mjs';
 import '../../../../../node_modules/.pnpm/lodash-es@4.17.21/node_modules/lodash-es/lodash.mjs';
 import { isFunction, isBoolean, isNull, isArray } from '../../../../utils/is.mjs';
@@ -11,6 +11,9 @@ import upperFirst from '../../../../../node_modules/.pnpm/lodash-es@4.17.21/node
 import { ElFormItem } from '../../../../../node_modules/.pnpm/element-plus@1.2.0-beta.4_vue@3.2.22/node_modules/element-plus/es/components/form/index.mjs';
 import { ElCol } from '../../../../../node_modules/.pnpm/element-plus@1.2.0-beta.4_vue@3.2.22/node_modules/element-plus/es/components/col/index.mjs';
 
+function _isSlot(s) {
+  return typeof s === "function" || Object.prototype.toString.call(s) === "[object Object]" && !isVNode(s);
+}
 var script = defineComponent({
   name: "BasicFormItem",
   inheritAttrs: false,
@@ -39,11 +42,20 @@ var script = defineComponent({
       type: Object
     }
   },
-  setup(props, { slots }) {
-    const { schema, formProps } = toRefs(props);
+  setup(props, {
+    slots
+  }) {
+    const {
+      schema,
+      formProps
+    } = toRefs(props);
     const itemLabelWidthProp = useItemLabWidth(schema, formProps);
     const getValues = computed(() => {
-      const { schema: schema2, formModel, allDefaultValues } = props;
+      const {
+        schema: schema2,
+        formModel,
+        allDefaultValues
+      } = props;
       return {
         field: schema2.field,
         schema: schema2,
@@ -56,15 +68,26 @@ var script = defineComponent({
     });
     const getComponentsProps = computed(() => {
       var _a;
-      const { schema: schema2, formModel } = props;
-      const { componentProps = {} } = schema2;
+      const {
+        schema: schema2,
+        formModel
+      } = props;
+      const {
+        componentProps = {}
+      } = schema2;
       if (!isFunction(componentProps)) {
         return componentProps;
       }
-      return (_a = componentProps({ schema: schema2, formModel })) != null ? _a : {};
+      return (_a = componentProps({
+        schema: schema2,
+        formModel
+      })) != null ? _a : {};
     });
     function getShow() {
-      const { show, ifShow } = props.schema;
+      const {
+        show,
+        ifShow
+      } = props.schema;
       let isShow = true;
       let isIfShow = true;
       if (isBoolean(show)) {
@@ -79,7 +102,10 @@ var script = defineComponent({
       if (isFunction(ifShow)) {
         isIfShow = ifShow(unref(getValues));
       }
-      return { isShow, isIfShow };
+      return {
+        isShow,
+        isIfShow
+      };
     }
     function handleRules() {
       var _a;
@@ -95,7 +121,9 @@ var script = defineComponent({
         return dynamicRules(unref(getValues));
       }
       let rules = cloneDeep(defRules);
-      const { rulesMessageJoinLabel: globalRulesMessageJoinLabel = "" } = props.formProps;
+      const {
+        rulesMessageJoinLabel: globalRulesMessageJoinLabel = ""
+      } = props.formProps;
       const joinLabel = Reflect.has(props.schema, "rulesMessageJoinLabel") ? rulesMessageJoinLabel : globalRulesMessageJoinLabel;
       const defaultMsg = `${createPlaceholderMessage(component)}${joinLabel ? "" : label}`;
       function validator(rule, value) {
@@ -113,12 +141,17 @@ var script = defineComponent({
       }
       const getRequired = isFunction(required) ? required(unref(getValues)) : required;
       if ((!rules || rules.length === 0) && getRequired) {
-        rules = [{ required: getRequired, validator }];
+        rules = [{
+          required: getRequired,
+          validator
+        }];
       }
       const requiredRuleIndex = rules.findIndex((rule) => Reflect.has(rule, "required") && !Reflect.has(rule, "validator"));
       if (requiredRuleIndex !== -1) {
         const rule = rules[requiredRuleIndex];
-        const { isShow } = getShow();
+        const {
+          isShow
+        } = getShow();
         if (!isShow) {
           rule.required = false;
         }
@@ -141,7 +174,11 @@ var script = defineComponent({
       return rules;
     }
     function renderComponent() {
-      const { component, field, changeEvent = "change" } = props.schema;
+      const {
+        component,
+        field,
+        changeEvent = "change"
+      } = props.schema;
       const isCheck = component && ["Checkbox"].includes(component);
       let eventKey = `on${upperFirst(changeEvent)}`;
       if (["Input", "Slider"].includes(component)) {
@@ -163,7 +200,9 @@ var script = defineComponent({
         ...unref(getComponentsProps)
       };
       if (!["ColorPicker"].includes(component)) {
-        propsData = Object.assign(propsData, { clearable: true });
+        propsData = Object.assign(propsData, {
+          clearable: true
+        });
       }
       const bindValue = {
         [isCheck ? "checked" : "model-value"]: handleFormItemValue(props.schema, props.formModel[field])
@@ -174,73 +213,94 @@ var script = defineComponent({
         ...bindValue
       };
       if (["RadioGroup", "CheckboxGroup", "Select"].includes(component) && component && propsData.options && isArray(propsData.options)) {
+        let _slot;
         const options = propsData.options;
         const getContent = (component2, options2) => {
           return renderGroup(component2, options2);
         };
-        return /* @__PURE__ */ h(Comp, {
-          ...compAttr
-        }, getContent(component, options));
+        return createVNode(Comp, compAttr, _isSlot(_slot = getContent(component, options)) ? _slot : {
+          default: () => [_slot]
+        });
       }
-      return /* @__PURE__ */ h(Comp, {
-        ...compAttr
-      });
+      return createVNode(Comp, compAttr, null);
     }
     function renderGroup(component, options) {
       if (component === "Select") {
         const CompItem = componentMap.get("Option");
         return options.map((val) => {
-          return /* @__PURE__ */ h(CompItem, {
-            label: val.label,
-            key: val.value,
-            value: val.value
-          });
+          return createVNode(CompItem, {
+            "label": val.label,
+            "key": val.value,
+            "value": val.value
+          }, null);
         });
       } else {
         const componentName = component.replace(/w*Group$/, "");
         const CompItem = componentMap.get(componentName);
         const CompList = options.map((val) => {
-          return /* @__PURE__ */ h(CompItem, {
-            label: val.value
-          }, val.label);
+          return createVNode(CompItem, {
+            "label": val.value
+          }, {
+            default: () => [val.label]
+          });
         });
         return CompList;
       }
     }
     function renderItem() {
-      const { field, label, itemProps, slot } = props.schema;
-      const { labelCol, wrapperCol } = unref(itemLabelWidthProp);
+      const {
+        field,
+        label,
+        itemProps,
+        slot
+      } = props.schema;
+      const {
+        labelCol,
+        wrapperCol
+      } = unref(itemLabelWidthProp);
       const getContent = () => {
         return slot ? getSlot(slots, slot, unref(getValues)) : renderComponent();
       };
-      return /* @__PURE__ */ h(ElFormItem, {
-        prop: field,
-        label,
-        ...itemProps,
-        ...wrapperCol,
-        labelWidth: labelCol,
-        rules: handleRules()
-      }, /* @__PURE__ */ h("div", {
-        style: "display: flex;height: 100%;align-items: center;"
-      }, /* @__PURE__ */ h("div", {
-        style: "flex: 1"
-      }, getContent())));
+      return createVNode(ElFormItem, mergeProps({
+        "prop": field,
+        "label": label
+      }, itemProps, wrapperCol, {
+        "labelWidth": labelCol,
+        "rules": handleRules()
+      }), {
+        default: () => [createVNode("div", {
+          "style": "display: flex;height: 100%;align-items: center;"
+        }, [createVNode("div", {
+          "style": "flex: 1"
+        }, [getContent()])])]
+      });
     }
     return () => {
-      const { component, colProps = {} } = props.schema;
+      let _slot2;
+      const {
+        component,
+        colProps = {}
+      } = props.schema;
       if (!componentMap.has(component)) {
         return null;
       }
-      const { baseColProps = {} } = props.formProps;
-      const realColProps = { ...baseColProps, ...colProps };
-      const { isIfShow, isShow } = getShow();
+      const {
+        baseColProps = {}
+      } = props.formProps;
+      const realColProps = {
+        ...baseColProps,
+        ...colProps
+      };
+      const {
+        isIfShow,
+        isShow
+      } = getShow();
       const getContent = () => {
         return renderItem();
       };
-      return isIfShow && /* @__PURE__ */ h(ElCol, {
-        ...realColProps,
-        "v-show": isShow
-      }, getContent());
+      return isIfShow && withDirectives(createVNode(ElCol, realColProps, _isSlot(_slot2 = getContent()) ? _slot2 : {
+        default: () => [_slot2]
+      }), [[vShow, isShow]]);
     };
   }
 });

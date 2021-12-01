@@ -15,6 +15,9 @@ var upperFirst = require('../../../../../node_modules/.pnpm/lodash-es@4.17.21/no
 var index = require('../../../../../node_modules/.pnpm/element-plus@1.2.0-beta.4_vue@3.2.22/node_modules/element-plus/es/components/form/index.js');
 var index$1 = require('../../../../../node_modules/.pnpm/element-plus@1.2.0-beta.4_vue@3.2.22/node_modules/element-plus/es/components/col/index.js');
 
+function _isSlot(s) {
+  return typeof s === "function" || Object.prototype.toString.call(s) === "[object Object]" && !vue.isVNode(s);
+}
 var script = vue.defineComponent({
   name: "BasicFormItem",
   inheritAttrs: false,
@@ -43,11 +46,20 @@ var script = vue.defineComponent({
       type: Object
     }
   },
-  setup(props, { slots }) {
-    const { schema, formProps } = vue.toRefs(props);
+  setup(props, {
+    slots
+  }) {
+    const {
+      schema,
+      formProps
+    } = vue.toRefs(props);
     const itemLabelWidthProp = useLabelWidth.useItemLabWidth(schema, formProps);
     const getValues = vue.computed(() => {
-      const { schema: schema2, formModel, allDefaultValues } = props;
+      const {
+        schema: schema2,
+        formModel,
+        allDefaultValues
+      } = props;
       return {
         field: schema2.field,
         schema: schema2,
@@ -60,15 +72,26 @@ var script = vue.defineComponent({
     });
     const getComponentsProps = vue.computed(() => {
       var _a;
-      const { schema: schema2, formModel } = props;
-      const { componentProps = {} } = schema2;
+      const {
+        schema: schema2,
+        formModel
+      } = props;
+      const {
+        componentProps = {}
+      } = schema2;
       if (!is.isFunction(componentProps)) {
         return componentProps;
       }
-      return (_a = componentProps({ schema: schema2, formModel })) != null ? _a : {};
+      return (_a = componentProps({
+        schema: schema2,
+        formModel
+      })) != null ? _a : {};
     });
     function getShow() {
-      const { show, ifShow } = props.schema;
+      const {
+        show,
+        ifShow
+      } = props.schema;
       let isShow = true;
       let isIfShow = true;
       if (is.isBoolean(show)) {
@@ -83,7 +106,10 @@ var script = vue.defineComponent({
       if (is.isFunction(ifShow)) {
         isIfShow = ifShow(vue.unref(getValues));
       }
-      return { isShow, isIfShow };
+      return {
+        isShow,
+        isIfShow
+      };
     }
     function handleRules() {
       var _a;
@@ -99,7 +125,9 @@ var script = vue.defineComponent({
         return dynamicRules(vue.unref(getValues));
       }
       let rules = cloneDeep["default"](defRules);
-      const { rulesMessageJoinLabel: globalRulesMessageJoinLabel = "" } = props.formProps;
+      const {
+        rulesMessageJoinLabel: globalRulesMessageJoinLabel = ""
+      } = props.formProps;
       const joinLabel = Reflect.has(props.schema, "rulesMessageJoinLabel") ? rulesMessageJoinLabel : globalRulesMessageJoinLabel;
       const defaultMsg = `${helper.createPlaceholderMessage(component)}${joinLabel ? "" : label}`;
       function validator(rule, value) {
@@ -117,12 +145,17 @@ var script = vue.defineComponent({
       }
       const getRequired = is.isFunction(required) ? required(vue.unref(getValues)) : required;
       if ((!rules || rules.length === 0) && getRequired) {
-        rules = [{ required: getRequired, validator }];
+        rules = [{
+          required: getRequired,
+          validator
+        }];
       }
       const requiredRuleIndex = rules.findIndex((rule) => Reflect.has(rule, "required") && !Reflect.has(rule, "validator"));
       if (requiredRuleIndex !== -1) {
         const rule = rules[requiredRuleIndex];
-        const { isShow } = getShow();
+        const {
+          isShow
+        } = getShow();
         if (!isShow) {
           rule.required = false;
         }
@@ -145,7 +178,11 @@ var script = vue.defineComponent({
       return rules;
     }
     function renderComponent() {
-      const { component, field, changeEvent = "change" } = props.schema;
+      const {
+        component,
+        field,
+        changeEvent = "change"
+      } = props.schema;
       const isCheck = component && ["Checkbox"].includes(component);
       let eventKey = `on${upperFirst["default"](changeEvent)}`;
       if (["Input", "Slider"].includes(component)) {
@@ -167,7 +204,9 @@ var script = vue.defineComponent({
         ...vue.unref(getComponentsProps)
       };
       if (!["ColorPicker"].includes(component)) {
-        propsData = Object.assign(propsData, { clearable: true });
+        propsData = Object.assign(propsData, {
+          clearable: true
+        });
       }
       const bindValue = {
         [isCheck ? "checked" : "model-value"]: helper.handleFormItemValue(props.schema, props.formModel[field])
@@ -178,73 +217,94 @@ var script = vue.defineComponent({
         ...bindValue
       };
       if (["RadioGroup", "CheckboxGroup", "Select"].includes(component) && component && propsData.options && is.isArray(propsData.options)) {
+        let _slot;
         const options = propsData.options;
         const getContent = (component2, options2) => {
           return renderGroup(component2, options2);
         };
-        return /* @__PURE__ */ vue.h(Comp, {
-          ...compAttr
-        }, getContent(component, options));
+        return vue.createVNode(Comp, compAttr, _isSlot(_slot = getContent(component, options)) ? _slot : {
+          default: () => [_slot]
+        });
       }
-      return /* @__PURE__ */ vue.h(Comp, {
-        ...compAttr
-      });
+      return vue.createVNode(Comp, compAttr, null);
     }
     function renderGroup(component, options) {
       if (component === "Select") {
         const CompItem = componentMap.componentMap.get("Option");
         return options.map((val) => {
-          return /* @__PURE__ */ vue.h(CompItem, {
-            label: val.label,
-            key: val.value,
-            value: val.value
-          });
+          return vue.createVNode(CompItem, {
+            "label": val.label,
+            "key": val.value,
+            "value": val.value
+          }, null);
         });
       } else {
         const componentName = component.replace(/w*Group$/, "");
         const CompItem = componentMap.componentMap.get(componentName);
         const CompList = options.map((val) => {
-          return /* @__PURE__ */ vue.h(CompItem, {
-            label: val.value
-          }, val.label);
+          return vue.createVNode(CompItem, {
+            "label": val.value
+          }, {
+            default: () => [val.label]
+          });
         });
         return CompList;
       }
     }
     function renderItem() {
-      const { field, label, itemProps, slot } = props.schema;
-      const { labelCol, wrapperCol } = vue.unref(itemLabelWidthProp);
+      const {
+        field,
+        label,
+        itemProps,
+        slot
+      } = props.schema;
+      const {
+        labelCol,
+        wrapperCol
+      } = vue.unref(itemLabelWidthProp);
       const getContent = () => {
         return slot ? tsxHelper.getSlot(slots, slot, vue.unref(getValues)) : renderComponent();
       };
-      return /* @__PURE__ */ vue.h(index.ElFormItem, {
-        prop: field,
-        label,
-        ...itemProps,
-        ...wrapperCol,
-        labelWidth: labelCol,
-        rules: handleRules()
-      }, /* @__PURE__ */ vue.h("div", {
-        style: "display: flex;height: 100%;align-items: center;"
-      }, /* @__PURE__ */ vue.h("div", {
-        style: "flex: 1"
-      }, getContent())));
+      return vue.createVNode(index.ElFormItem, vue.mergeProps({
+        "prop": field,
+        "label": label
+      }, itemProps, wrapperCol, {
+        "labelWidth": labelCol,
+        "rules": handleRules()
+      }), {
+        default: () => [vue.createVNode("div", {
+          "style": "display: flex;height: 100%;align-items: center;"
+        }, [vue.createVNode("div", {
+          "style": "flex: 1"
+        }, [getContent()])])]
+      });
     }
     return () => {
-      const { component, colProps = {} } = props.schema;
+      let _slot2;
+      const {
+        component,
+        colProps = {}
+      } = props.schema;
       if (!componentMap.componentMap.has(component)) {
         return null;
       }
-      const { baseColProps = {} } = props.formProps;
-      const realColProps = { ...baseColProps, ...colProps };
-      const { isIfShow, isShow } = getShow();
+      const {
+        baseColProps = {}
+      } = props.formProps;
+      const realColProps = {
+        ...baseColProps,
+        ...colProps
+      };
+      const {
+        isIfShow,
+        isShow
+      } = getShow();
       const getContent = () => {
         return renderItem();
       };
-      return isIfShow && /* @__PURE__ */ vue.h(index$1.ElCol, {
-        ...realColProps,
-        "v-show": isShow
-      }, getContent());
+      return isIfShow && vue.withDirectives(vue.createVNode(index$1.ElCol, realColProps, _isSlot(_slot2 = getContent()) ? _slot2 : {
+        default: () => [_slot2]
+      }), [[vue.vShow, isShow]]);
     };
   }
 });

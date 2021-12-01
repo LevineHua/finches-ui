@@ -3,7 +3,7 @@
  * @Author: 华松林
  * @Date: 2021-11-29 18:06:33
  * @LastEditors: 华松林
- * @LastEditTime: 2021-12-01 15:39:51
+ * @LastEditTime: 2021-12-01 16:06:50
  * @FilePath: /finches-ui/build/full-bundle.ts
  */
 import path from 'path'
@@ -16,7 +16,7 @@ import replace from '@rollup/plugin-replace'
 import filesize from 'rollup-plugin-filesize'
 import { parallel } from 'gulp'
 // import tsPlugin from '@rollup/plugin-typescript'
-// import vueJsx from '@vitejs/plugin-vue-jsx'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 import { version } from '../packages/finches-ui/version'
 import { FinchesUiAlias } from './plugins/finches-ui-alias'
 import { epRoot, epOutput } from './utils/paths'
@@ -37,13 +37,14 @@ export const buildFull = (minify: boolean) => async () => {
         target: 'browser',
         exposeFilename: false,
       }),
+      vueJsx(),
       commonjs(),
       esbuild({
         minify,
         sourceMap: minify,
         target: 'es2018',
-        jsxFactory: 'h',
-        jsxFragment: 'Fragment',
+        // jsxFactory: 'h',
+        // jsxFragment: 'Fragment',
       }),
       replace({
         'process.env.NODE_ENV': JSON.stringify('production'),
@@ -52,7 +53,6 @@ export const buildFull = (minify: boolean) => async () => {
         preventAssignment: true,
       }),
       filesize(),
-      // vueJsx(),
     ],
     external: await generateExternal({ full: true }),
   })

@@ -1,8 +1,8 @@
-/*! Finches Ui v0.0.0-dev.12 */
+/*! Finches Ui v0.0.0-dev.13 */
 
 import { defineComponent, openBlock, createElementBlock, renderSlot, createTextVNode, getCurrentInstance, computed, Comment, isVNode, Fragment, warn, inject, ref, unref, getCurrentScope, onScopeDispose, watch, mergeProps, createBlock, createVNode, shallowRef, nextTick, onMounted, onUpdated, resolveComponent, withDirectives, normalizeClass, normalizeStyle, createCommentVNode, createElementVNode, withCtx, resolveDynamicComponent, withModifiers, toDisplayString, vShow, onBeforeUnmount, toRef, Transition, provide, reactive, h as h$1, cloneVNode, onActivated, onDeactivated, Teleport, Text, resolveDirective, renderList, vModelCheckbox, toRefs, withKeys, vModelRadio, onBeforeUpdate, vModelText, watchEffect, toRaw, triggerRef, createSlots, readonly, normalizeProps, guardReactiveProps } from 'vue';
 
-const version$1 = "0.0.0-dev.12";
+const version$1 = "0.0.0-dev.13";
 
 const makeInstaller = (components = []) => {
   const apps = [];
@@ -76,7 +76,7 @@ const withInstall$1 = (main, extra) => {
   return main;
 };
 
-var script$12 = defineComponent({
+var script$11 = defineComponent({
   name: "CbTest",
   props: {},
   setup(props) {
@@ -84,35 +84,17 @@ var script$12 = defineComponent({
 });
 
 const _hoisted_1$M = /* @__PURE__ */ createTextVNode(" \u6211\u662F\u4E00\u4E2A\u6D4B\u8BD5\u7EC4\u4EF6 ");
-function render$10(_ctx, _cache, $props, $setup, $data, $options) {
+function render$$(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", null, [
     renderSlot(_ctx.$slots, "default"),
     _hoisted_1$M
   ]);
 }
 
-script$12.render = render$10;
-script$12.__file = "packages/components/test/src/test.vue";
-
-const CbTest = withInstall$1(script$12);
-
-var script$11 = defineComponent({
-  name: "CbAaa",
-  props: {},
-  setup(props) {
-  }
-});
-
-function render$$(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createElementBlock("div", null, [
-    renderSlot(_ctx.$slots, "default")
-  ]);
-}
-
 script$11.render = render$$;
-script$11.__file = "packages/components/aaa/src/index.vue";
+script$11.__file = "packages/components/test/src/test.vue";
 
-const CbAaa = withInstall$1(script$11);
+const CbTest = withInstall$1(script$11);
 
 let $ELEMENT = {};
 const getConfig = (key) => {
@@ -30509,6 +30491,9 @@ function useItemLabWidth(schemaItemRef, propsRef) {
   });
 }
 
+function _isSlot(s) {
+  return typeof s === "function" || Object.prototype.toString.call(s) === "[object Object]" && !isVNode(s);
+}
 var script$2 = defineComponent({
   name: "BasicFormItem",
   inheritAttrs: false,
@@ -30537,11 +30522,20 @@ var script$2 = defineComponent({
       type: Object
     }
   },
-  setup(props, { slots }) {
-    const { schema, formProps } = toRefs(props);
+  setup(props, {
+    slots
+  }) {
+    const {
+      schema,
+      formProps
+    } = toRefs(props);
     const itemLabelWidthProp = useItemLabWidth(schema, formProps);
     const getValues = computed(() => {
-      const { schema: schema2, formModel, allDefaultValues } = props;
+      const {
+        schema: schema2,
+        formModel,
+        allDefaultValues
+      } = props;
       return {
         field: schema2.field,
         schema: schema2,
@@ -30554,15 +30548,26 @@ var script$2 = defineComponent({
     });
     const getComponentsProps = computed(() => {
       var _a;
-      const { schema: schema2, formModel } = props;
-      const { componentProps = {} } = schema2;
+      const {
+        schema: schema2,
+        formModel
+      } = props;
+      const {
+        componentProps = {}
+      } = schema2;
       if (!isFunction$1(componentProps)) {
         return componentProps;
       }
-      return (_a = componentProps({ schema: schema2, formModel })) != null ? _a : {};
+      return (_a = componentProps({
+        schema: schema2,
+        formModel
+      })) != null ? _a : {};
     });
     function getShow() {
-      const { show, ifShow } = props.schema;
+      const {
+        show,
+        ifShow
+      } = props.schema;
       let isShow = true;
       let isIfShow = true;
       if (isBoolean(show)) {
@@ -30577,7 +30582,10 @@ var script$2 = defineComponent({
       if (isFunction$1(ifShow)) {
         isIfShow = ifShow(unref(getValues));
       }
-      return { isShow, isIfShow };
+      return {
+        isShow,
+        isIfShow
+      };
     }
     function handleRules() {
       var _a;
@@ -30593,7 +30601,9 @@ var script$2 = defineComponent({
         return dynamicRules(unref(getValues));
       }
       let rules = cloneDeep(defRules);
-      const { rulesMessageJoinLabel: globalRulesMessageJoinLabel = "" } = props.formProps;
+      const {
+        rulesMessageJoinLabel: globalRulesMessageJoinLabel = ""
+      } = props.formProps;
       const joinLabel = Reflect.has(props.schema, "rulesMessageJoinLabel") ? rulesMessageJoinLabel : globalRulesMessageJoinLabel;
       const defaultMsg = `${createPlaceholderMessage(component)}${joinLabel ? "" : label}`;
       function validator(rule, value) {
@@ -30611,12 +30621,17 @@ var script$2 = defineComponent({
       }
       const getRequired = isFunction$1(required) ? required(unref(getValues)) : required;
       if ((!rules || rules.length === 0) && getRequired) {
-        rules = [{ required: getRequired, validator }];
+        rules = [{
+          required: getRequired,
+          validator
+        }];
       }
       const requiredRuleIndex = rules.findIndex((rule) => Reflect.has(rule, "required") && !Reflect.has(rule, "validator"));
       if (requiredRuleIndex !== -1) {
         const rule = rules[requiredRuleIndex];
-        const { isShow } = getShow();
+        const {
+          isShow
+        } = getShow();
         if (!isShow) {
           rule.required = false;
         }
@@ -30639,7 +30654,11 @@ var script$2 = defineComponent({
       return rules;
     }
     function renderComponent() {
-      const { component, field, changeEvent = "change" } = props.schema;
+      const {
+        component,
+        field,
+        changeEvent = "change"
+      } = props.schema;
       const isCheck = component && ["Checkbox"].includes(component);
       let eventKey = `on${upperFirst$1(changeEvent)}`;
       if (["Input", "Slider"].includes(component)) {
@@ -30661,7 +30680,9 @@ var script$2 = defineComponent({
         ...unref(getComponentsProps)
       };
       if (!["ColorPicker"].includes(component)) {
-        propsData = Object.assign(propsData, { clearable: true });
+        propsData = Object.assign(propsData, {
+          clearable: true
+        });
       }
       const bindValue = {
         [isCheck ? "checked" : "model-value"]: handleFormItemValue(props.schema, props.formModel[field])
@@ -30672,73 +30693,94 @@ var script$2 = defineComponent({
         ...bindValue
       };
       if (["RadioGroup", "CheckboxGroup", "Select"].includes(component) && component && propsData.options && isArray$2(propsData.options)) {
+        let _slot;
         const options = propsData.options;
         const getContent = (component2, options2) => {
           return renderGroup(component2, options2);
         };
-        return /* @__PURE__ */ h$1(Comp, {
-          ...compAttr
-        }, getContent(component, options));
+        return createVNode(Comp, compAttr, _isSlot(_slot = getContent(component, options)) ? _slot : {
+          default: () => [_slot]
+        });
       }
-      return /* @__PURE__ */ h$1(Comp, {
-        ...compAttr
-      });
+      return createVNode(Comp, compAttr, null);
     }
     function renderGroup(component, options) {
       if (component === "Select") {
         const CompItem = componentMap.get("Option");
         return options.map((val) => {
-          return /* @__PURE__ */ h$1(CompItem, {
-            label: val.label,
-            key: val.value,
-            value: val.value
-          });
+          return createVNode(CompItem, {
+            "label": val.label,
+            "key": val.value,
+            "value": val.value
+          }, null);
         });
       } else {
         const componentName = component.replace(/w*Group$/, "");
         const CompItem = componentMap.get(componentName);
         const CompList = options.map((val) => {
-          return /* @__PURE__ */ h$1(CompItem, {
-            label: val.value
-          }, val.label);
+          return createVNode(CompItem, {
+            "label": val.value
+          }, {
+            default: () => [val.label]
+          });
         });
         return CompList;
       }
     }
     function renderItem() {
-      const { field, label, itemProps, slot } = props.schema;
-      const { labelCol, wrapperCol } = unref(itemLabelWidthProp);
+      const {
+        field,
+        label,
+        itemProps,
+        slot
+      } = props.schema;
+      const {
+        labelCol,
+        wrapperCol
+      } = unref(itemLabelWidthProp);
       const getContent = () => {
         return slot ? getSlot(slots, slot, unref(getValues)) : renderComponent();
       };
-      return /* @__PURE__ */ h$1(ElFormItem, {
-        prop: field,
-        label,
-        ...itemProps,
-        ...wrapperCol,
-        labelWidth: labelCol,
-        rules: handleRules()
-      }, /* @__PURE__ */ h$1("div", {
-        style: "display: flex;height: 100%;align-items: center;"
-      }, /* @__PURE__ */ h$1("div", {
-        style: "flex: 1"
-      }, getContent())));
+      return createVNode(ElFormItem, mergeProps({
+        "prop": field,
+        "label": label
+      }, itemProps, wrapperCol, {
+        "labelWidth": labelCol,
+        "rules": handleRules()
+      }), {
+        default: () => [createVNode("div", {
+          "style": "display: flex;height: 100%;align-items: center;"
+        }, [createVNode("div", {
+          "style": "flex: 1"
+        }, [getContent()])])]
+      });
     }
     return () => {
-      const { component, colProps = {} } = props.schema;
+      let _slot2;
+      const {
+        component,
+        colProps = {}
+      } = props.schema;
       if (!componentMap.has(component)) {
         return null;
       }
-      const { baseColProps = {} } = props.formProps;
-      const realColProps = { ...baseColProps, ...colProps };
-      const { isIfShow, isShow } = getShow();
+      const {
+        baseColProps = {}
+      } = props.formProps;
+      const realColProps = {
+        ...baseColProps,
+        ...colProps
+      };
+      const {
+        isIfShow,
+        isShow
+      } = getShow();
       const getContent = () => {
         return renderItem();
       };
-      return isIfShow && /* @__PURE__ */ h$1(ElCol, {
-        ...realColProps,
-        "v-show": isShow
-      }, getContent());
+      return isIfShow && withDirectives(createVNode(ElCol, realColProps, _isSlot(_slot2 = getContent()) ? _slot2 : {
+        default: () => [_slot2]
+      }), [[vShow, isShow]]);
     };
   }
 });
@@ -31314,11 +31356,11 @@ function useForm(props) {
 
 const CbForm = withInstall$1(script);
 
-var Components = [CbTest, CbAaa, CbForm];
+var Components = [CbTest, CbForm];
 
 var installer = makeInstaller$1([...Components]);
 
 const install = installer.install;
 const version = installer.version;
 
-export { script$3 as ApiSelect, CbAaa, CbForm, CbTest, installer as default, install, makeInstaller$1 as makeInstaller, useForm, version };
+export { script$3 as ApiSelect, CbForm, CbTest, installer as default, install, makeInstaller$1 as makeInstaller, useForm, version };

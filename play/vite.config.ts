@@ -3,7 +3,7 @@
  * @Author: 华松林
  * @Date: 2021-11-29 15:44:22
  * @LastEditors: 华松林
- * @LastEditTime: 2021-11-30 17:47:23
+ * @LastEditTime: 2021-12-01 16:05:46
  * @FilePath: /finches-ui/play/vite.config.ts
  */
 import path from 'path'
@@ -67,6 +67,10 @@ export default defineConfig(async () => {
         'dayjs',
         ...optimizeDeps,
       ],
+    },
+    esbuild: {
+      jsxFactory: 'h',
+      jsxFragment: 'Fragment',
     },
   }
 })
