@@ -1,8 +1,8 @@
-/*! Finches Ui v0.0.0-dev.10 */
+/*! Finches Ui v0.0.0-dev.11 */
 
 import { defineComponent, openBlock, createElementBlock, renderSlot, createTextVNode, getCurrentInstance, computed, Comment, isVNode, Fragment, warn, inject, ref, unref, getCurrentScope, onScopeDispose, watch, mergeProps, createBlock, createVNode, shallowRef, nextTick, onMounted, onUpdated, resolveComponent, withDirectives, normalizeClass, normalizeStyle, createCommentVNode, createElementVNode, withCtx, resolveDynamicComponent, withModifiers, toDisplayString, vShow, onBeforeUnmount, toRef, Transition, provide, reactive, h as h$1, cloneVNode, onActivated, onDeactivated, Teleport, Text, resolveDirective, renderList, vModelCheckbox, toRefs, withKeys, vModelRadio, onBeforeUpdate, vModelText, watchEffect, toRaw, triggerRef, createSlots, readonly, normalizeProps, guardReactiveProps } from 'vue';
 
-const version$1 = "0.0.0-dev.10";
+const version$1 = "0.0.0-dev.11";
 
 const makeInstaller = (components = []) => {
   const apps = [];
@@ -30201,14 +30201,13 @@ function getSlot(slots, slot = "default", data) {
   if (!slots || !Reflect.has(slots, slot)) {
     return null;
   }
-
   if (!isFunction$1(slots[slot])) {
     console.error(`${slot} is not a function!`);
     return null;
   }
-
   const slotFn = slots[slot];
-  if (!slotFn) return null;
+  if (!slotFn)
+    return null;
   return slotFn(data);
 }
 
@@ -30538,84 +30537,50 @@ var script$2 = defineComponent({
       type: Object
     }
   },
-
-  setup(props, {
-    slots
-  }) {
-    const {
-      schema,
-      formProps
-    } = toRefs(props);
+  setup(props, { slots }) {
+    const { schema, formProps } = toRefs(props);
     const itemLabelWidthProp = useItemLabWidth(schema, formProps);
     const getValues = computed(() => {
-      const {
-        schema: schema2,
-        formModel,
-        allDefaultValues
-      } = props;
+      const { schema: schema2, formModel, allDefaultValues } = props;
       return {
         field: schema2.field,
         schema: schema2,
         model: formModel,
-        values: { ...formModel,
+        values: {
+          ...formModel,
           ...allDefaultValues
         }
       };
     });
     const getComponentsProps = computed(() => {
       var _a;
-
-      const {
-        schema: schema2,
-        formModel
-      } = props;
-      const {
-        componentProps = {}
-      } = schema2;
-
+      const { schema: schema2, formModel } = props;
+      const { componentProps = {} } = schema2;
       if (!isFunction$1(componentProps)) {
         return componentProps;
       }
-
-      return (_a = componentProps({
-        schema: schema2,
-        formModel
-      })) != null ? _a : {};
+      return (_a = componentProps({ schema: schema2, formModel })) != null ? _a : {};
     });
-
     function getShow() {
-      const {
-        show,
-        ifShow
-      } = props.schema;
+      const { show, ifShow } = props.schema;
       let isShow = true;
       let isIfShow = true;
-
       if (isBoolean(show)) {
         isShow = show;
       }
-
       if (isBoolean(ifShow)) {
         isIfShow = ifShow;
       }
-
       if (isFunction$1(show)) {
         isShow = show(unref(getValues));
       }
-
       if (isFunction$1(ifShow)) {
         isIfShow = ifShow(unref(getValues));
       }
-
-      return {
-        isShow,
-        isIfShow
-      };
+      return { isShow, isIfShow };
     }
-
     function handleRules() {
       var _a;
-
       const {
         rules: defRules = [],
         component,
@@ -30624,21 +30589,15 @@ var script$2 = defineComponent({
         dynamicRules,
         required
       } = props.schema;
-
       if (isFunction$1(dynamicRules)) {
         return dynamicRules(unref(getValues));
       }
-
       let rules = cloneDeep(defRules);
-      const {
-        rulesMessageJoinLabel: globalRulesMessageJoinLabel = ""
-      } = props.formProps;
+      const { rulesMessageJoinLabel: globalRulesMessageJoinLabel = "" } = props.formProps;
       const joinLabel = Reflect.has(props.schema, "rulesMessageJoinLabel") ? rulesMessageJoinLabel : globalRulesMessageJoinLabel;
       const defaultMsg = `${createPlaceholderMessage(component)}${joinLabel ? "" : label}`;
-
       function validator(rule, value) {
         const msg = rule.message || defaultMsg;
-
         if (value === void 0 || isNull(value)) {
           return Promise.reject(msg);
         } else if (Array.isArray(value) && value.length === 0) {
@@ -30648,120 +30607,88 @@ var script$2 = defineComponent({
         } else if (typeof value === "object" && Reflect.has(value, "checked") && Reflect.has(value, "halfChecked") && Array.isArray(value.checked) && Array.isArray(value.halfChecked) && value.checked.length === 0 && value.halfChecked.length === 0) {
           return Promise.reject(msg);
         }
-
         return Promise.resolve();
       }
-
       const getRequired = isFunction$1(required) ? required(unref(getValues)) : required;
-
       if ((!rules || rules.length === 0) && getRequired) {
-        rules = [{
-          required: getRequired,
-          validator
-        }];
+        rules = [{ required: getRequired, validator }];
       }
-
-      const requiredRuleIndex = rules.findIndex(rule => Reflect.has(rule, "required") && !Reflect.has(rule, "validator"));
-
+      const requiredRuleIndex = rules.findIndex((rule) => Reflect.has(rule, "required") && !Reflect.has(rule, "validator"));
       if (requiredRuleIndex !== -1) {
         const rule = rules[requiredRuleIndex];
-        const {
-          isShow
-        } = getShow();
-
+        const { isShow } = getShow();
         if (!isShow) {
           rule.required = false;
         }
-
         if (component) {
           if (!Reflect.has(rule, "type")) {
             rule.type = component === "InputNumber" ? "number" : "string";
           }
-
           rule.message = rule.message || defaultMsg;
-
           if (component.includes("Input") || component.includes("Textarea")) {
             rule.whitespace = true;
           }
-
           const valueFormat = (_a = unref(getComponentsProps)) == null ? void 0 : _a.valueFormat;
           setComponentRuleType(rule, component, valueFormat);
         }
       }
-
-      const characterInx = rules.findIndex(val => val.max);
-
+      const characterInx = rules.findIndex((val) => val.max);
       if (characterInx !== -1 && !rules[characterInx].validator) {
         rules[characterInx].message = rules[characterInx].message || `\u5B57\u7B26\u6570\u5E94\u5C0F\u4E8E${rules[characterInx].max}\u4F4D`;
       }
-
       return rules;
     }
-
     function renderComponent() {
-      const {
-        component,
-        field,
-        changeEvent = "change"
-      } = props.schema;
+      const { component, field, changeEvent = "change" } = props.schema;
       const isCheck = component && ["Checkbox"].includes(component);
       let eventKey = `on${upperFirst$1(changeEvent)}`;
-
       if (["Input", "Slider"].includes(component)) {
         eventKey = "onInput";
       }
-
       const on = {
         [eventKey]: (...args) => {
           const [e] = args;
-
           if (propsData[eventKey]) {
             propsData[eventKey](...args);
           }
-
           const target = e ? e.target : null;
           const value = target ? isCheck ? target.checked : target.value : e;
           props.setFormModel(field, value);
         }
       };
       const Comp = componentMap.get(component);
-      let propsData = { ...unref(getComponentsProps)
+      let propsData = {
+        ...unref(getComponentsProps)
       };
-
       if (!["ColorPicker"].includes(component)) {
-        propsData = Object.assign(propsData, {
-          clearable: true
-        });
+        propsData = Object.assign(propsData, { clearable: true });
       }
-
       const bindValue = {
         [isCheck ? "checked" : "model-value"]: handleFormItemValue(props.schema, props.formModel[field])
       };
-      const compAttr = { ...propsData,
+      const compAttr = {
+        ...propsData,
         ...on,
         ...bindValue
       };
-
       if (["RadioGroup", "CheckboxGroup", "Select"].includes(component) && component && propsData.options && isArray$2(propsData.options)) {
         const options = propsData.options;
-
         const getContent = (component2, options2) => {
           return renderGroup(component2, options2);
         };
-
-        return /* @__PURE__ */React.createElement(Comp, { ...compAttr
+        return /* @__PURE__ */ h$1(Comp, {
+          ...compAttr
         }, getContent(component, options));
       }
-
-      return /* @__PURE__ */React.createElement(Comp, { ...compAttr
+      return /* @__PURE__ */ h$1(Comp, {
+        ...compAttr
       });
     }
-
     function renderGroup(component, options) {
       if (component === "Select") {
         const CompItem = componentMap.get("Option");
-        return options.map(val => {
-          return /* @__PURE__ */React.createElement(CompItem, {
+        return options.map((val) => {
+          return /* @__PURE__ */ h$1(CompItem, {
             label: val.label,
             key: val.value,
             value: val.value
@@ -30770,76 +30697,50 @@ var script$2 = defineComponent({
       } else {
         const componentName = component.replace(/w*Group$/, "");
         const CompItem = componentMap.get(componentName);
-        const CompList = options.map(val => {
-          return /* @__PURE__ */React.createElement(CompItem, {
+        const CompList = options.map((val) => {
+          return /* @__PURE__ */ h$1(CompItem, {
             label: val.value
           }, val.label);
         });
         return CompList;
       }
     }
-
     function renderItem() {
-      const {
-        field,
-        label,
-        itemProps,
-        slot
-      } = props.schema;
-      const {
-        labelCol,
-        wrapperCol
-      } = unref(itemLabelWidthProp);
-
+      const { field, label, itemProps, slot } = props.schema;
+      const { labelCol, wrapperCol } = unref(itemLabelWidthProp);
       const getContent = () => {
         return slot ? getSlot(slots, slot, unref(getValues)) : renderComponent();
       };
-
-      return /* @__PURE__ */React.createElement(ElFormItem, {
+      return /* @__PURE__ */ h$1(ElFormItem, {
         prop: field,
         label,
         ...itemProps,
         ...wrapperCol,
         labelWidth: labelCol,
         rules: handleRules()
-      }, /* @__PURE__ */React.createElement("div", {
+      }, /* @__PURE__ */ h$1("div", {
         style: "display: flex;height: 100%;align-items: center;"
-      }, /* @__PURE__ */React.createElement("div", {
+      }, /* @__PURE__ */ h$1("div", {
         style: "flex: 1"
       }, getContent())));
     }
-
     return () => {
-      const {
-        component,
-        colProps = {}
-      } = props.schema;
-
+      const { component, colProps = {} } = props.schema;
       if (!componentMap.has(component)) {
         return null;
       }
-
-      const {
-        baseColProps = {}
-      } = props.formProps;
-      const realColProps = { ...baseColProps,
-        ...colProps
-      };
-      const {
-        isIfShow,
-        isShow
-      } = getShow();
-
+      const { baseColProps = {} } = props.formProps;
+      const realColProps = { ...baseColProps, ...colProps };
+      const { isIfShow, isShow } = getShow();
       const getContent = () => {
         return renderItem();
       };
-
-      return isIfShow && /* @__PURE__ */React.createElement(ElCol, { ...realColProps,
+      return isIfShow && /* @__PURE__ */ h$1(ElCol, {
+        ...realColProps,
         "v-show": isShow
       }, getContent());
     };
   }
-
 });
 
 script$2.__file = "packages/components/form/src/components/FormItem.vue";
