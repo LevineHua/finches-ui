@@ -275,8 +275,30 @@ var script = defineComponent({
         }, [getContent()])])]
       });
     }
+    function renderBottomSlot() {
+      const {
+        field
+      } = props.schema;
+      const {
+        labelCol,
+        wrapperCol
+      } = unref(itemLabelWidthProp);
+      console.log(labelCol, wrapperCol);
+      const slotFn = slots[`${field}-bottom`];
+      const getContent = () => {
+        return slotFn ? getSlot(slots, `${field}-bottom`, unref(getValues)) : null;
+      };
+      if (slotFn) {
+        const style = {
+          style: {
+            paddingLeft: labelCol,
+            marginBottom: "22px"
+          }
+        };
+        return createVNode("div", wrapperCol, [createVNode("div", style, [getContent()])]);
+      }
+    }
     return () => {
-      let _slot2;
       const {
         component,
         colProps = {}
@@ -298,8 +320,8 @@ var script = defineComponent({
       const getContent = () => {
         return renderItem();
       };
-      return isIfShow && withDirectives(createVNode(ElCol, realColProps, _isSlot(_slot2 = getContent()) ? _slot2 : {
-        default: () => [_slot2]
+      return isIfShow && withDirectives(createVNode(ElCol, realColProps, {
+        default: () => [getContent(), renderBottomSlot()]
       }), [[vShow, isShow]]);
     };
   }

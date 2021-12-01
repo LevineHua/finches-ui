@@ -3,7 +3,7 @@
  * @Author: 华松林
  * @Date: 2021-08-12 15:14:22
  * @LastEditors: 华松林
- * @LastEditTime: 2021-12-01 15:50:08
+ * @LastEditTime: 2021-12-01 17:39:00
  * @FilePath: /finches-ui/packages/components/form/src/components/FormItem.vue
 -->
 <script lang="tsx">
@@ -309,6 +309,42 @@ export default defineComponent({
       )
     }
 
+    // 生成输入框底部插槽
+    function renderBottomSlot() {
+      const { field } = props.schema
+      const { labelCol, wrapperCol } = unref(itemLabelWidthProp)
+
+      console.log(labelCol, wrapperCol)
+
+      // console.log(slots, slot, field, label, itemProps, slot)
+
+      const slotFn = slots[`${field}-bottom`]
+
+      // const getContent = () => {
+      //   return slotFn ? slotFn() : null
+      // }
+
+      const getContent = () => {
+        return slotFn
+          ? getSlot(slots, `${field}-bottom`, unref(getValues))
+          : null
+      }
+
+      if (slotFn) {
+        const style = {
+          style: {
+            paddingLeft: labelCol,
+            marginBottom: '22px',
+          },
+        }
+        return (
+          <div {...wrapperCol}>
+            <div {...style}>{getContent()}</div>
+          </div>
+        )
+      }
+    }
+
     return () => {
       const { component, colProps = {} } = props.schema
       if (!componentMap.has(component)) {
@@ -325,12 +361,15 @@ export default defineComponent({
         return renderItem()
       }
 
+      // renderBottomSlot()
+
       // console.log(getContent())
 
       return (
         isIfShow && (
           <ElCol {...realColProps} v-show={isShow}>
             {getContent()}
+            {renderBottomSlot()}
           </ElCol>
         )
       )

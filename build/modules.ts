@@ -3,12 +3,13 @@
  * @Author: 华松林
  * @Date: 2021-11-29 18:06:33
  * @LastEditors: 华松林
- * @LastEditTime: 2021-12-01 16:07:13
+ * @LastEditTime: 2021-12-01 16:44:27
  * @FilePath: /finches-ui/build/modules.ts
  */
 import { rollup } from 'rollup'
 import vue from 'rollup-plugin-vue'
-import css from 'rollup-plugin-css-only'
+// import css from 'rollup-plugin-css-only'
+import scss from 'rollup-plugin-scss'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import esbuild from 'rollup-plugin-esbuild'
@@ -35,7 +36,7 @@ export const buildModules = async () => {
     input,
     plugins: [
       await FinchesUiAlias(),
-      css(),
+      scss(),
       vue({ target: 'browser' }),
       vueJsx(),
       nodeResolve({
@@ -49,7 +50,6 @@ export const buildModules = async () => {
         // jsxFragment: 'Fragment',
       }),
       filesize({ reporter }),
-      //
     ],
     external: await generateExternal({ full: false }),
     treeshake: false,

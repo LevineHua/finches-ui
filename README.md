@@ -20,6 +20,12 @@ pnpm dev
 
 
 
+## vscode 需安装的插件
+
+* Prettier - Code formatter：格式化代码
+
+
+
 ## 如何创建组件？
 
 1. 在项目的根目录打开命令行，输入指令`pnpm gen component-name`，组件名称采用羊肉串命名法，创建的组件在 `packages/components/component-name`。

@@ -279,8 +279,30 @@ var script = vue.defineComponent({
         }, [getContent()])])]
       });
     }
+    function renderBottomSlot() {
+      const {
+        field
+      } = props.schema;
+      const {
+        labelCol,
+        wrapperCol
+      } = vue.unref(itemLabelWidthProp);
+      console.log(labelCol, wrapperCol);
+      const slotFn = slots[`${field}-bottom`];
+      const getContent = () => {
+        return slotFn ? tsxHelper.getSlot(slots, `${field}-bottom`, vue.unref(getValues)) : null;
+      };
+      if (slotFn) {
+        const style = {
+          style: {
+            paddingLeft: labelCol,
+            marginBottom: "22px"
+          }
+        };
+        return vue.createVNode("div", wrapperCol, [vue.createVNode("div", style, [getContent()])]);
+      }
+    }
     return () => {
-      let _slot2;
       const {
         component,
         colProps = {}
@@ -302,8 +324,8 @@ var script = vue.defineComponent({
       const getContent = () => {
         return renderItem();
       };
-      return isIfShow && vue.withDirectives(vue.createVNode(index$1.ElCol, realColProps, _isSlot(_slot2 = getContent()) ? _slot2 : {
-        default: () => [_slot2]
+      return isIfShow && vue.withDirectives(vue.createVNode(index$1.ElCol, realColProps, {
+        default: () => [getContent(), renderBottomSlot()]
       }), [[vue.vShow, isShow]]);
     };
   }

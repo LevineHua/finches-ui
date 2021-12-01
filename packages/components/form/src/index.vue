@@ -3,7 +3,7 @@
  * @Author: 华松林
  * @Date: 2021-08-11 16:59:37
  * @LastEditors: 华松林
- * @LastEditTime: 2021-12-01 14:29:17
+ * @LastEditTime: 2021-12-01 16:49:54
  * @FilePath: /finches-ui/packages/components/form/src/index.vue
 -->
 <template>
@@ -224,4 +224,3 @@ export default defineComponent({
   },
 })
 </script>
-<style></style>
