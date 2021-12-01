@@ -1,4 +1,4 @@
-/*! Finches Ui v0.0.0-dev.9 */
+/*! Finches Ui v0.0.0-dev.10 */
 
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('vue')) :
@@ -6,7 +6,7 @@
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.FinchesUi = {}, global.Vue));
 })(this, (function (exports, vue) { 'use strict';
 
-  const version$1 = "0.0.0-dev.9";
+  const version$1 = "0.0.0-dev.10";
 
   const makeInstaller = (components = []) => {
     const apps = [];
@@ -30205,13 +30205,14 @@
     if (!slots || !Reflect.has(slots, slot)) {
       return null;
     }
+
     if (!isFunction$1(slots[slot])) {
       console.error(`${slot} is not a function!`);
       return null;
     }
+
     const slotFn = slots[slot];
-    if (!slotFn)
-      return null;
+    if (!slotFn) return null;
     return slotFn(data);
   }
 
@@ -30248,7 +30249,7 @@
     return true;
   }
 
-  function t(){return t=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)Object.prototype.hasOwnProperty.call(r,n)&&(e[n]=r[n]);}return e},t.apply(this,arguments)}function r(e,t){if(null==e)return {};var r,n,i={},o=Object.keys(e);for(n=0;n<o.length;n++)t.indexOf(r=o[n])>=0||(i[r]=e[r]);return i}const n={silent:!1,logLevel:"warn"},i=["validator"],o=Object.prototype,a=o.toString,s=o.hasOwnProperty,u=/^\s*function (\w+)/;function l(e){var t;const r=null!==(t=null==e?void 0:e.type)&&void 0!==t?t:e;if(r){const e=r.toString().match(u);return e?e[1]:""}return ""}const c=isPlainObject,f=e=>e;let d=f;const p=(e,t)=>s.call(e,t),y=Number.isInteger||function(e){return "number"==typeof e&&isFinite(e)&&Math.floor(e)===e},v=Array.isArray||function(e){return "[object Array]"===a.call(e)},h$1=e=>"[object Function]"===a.call(e),b=e=>c(e)&&p(e,"_vueTypes_name"),g=e=>c(e)&&(p(e,"type")||["_vueTypes_name","validator","default","required"].some(t=>p(e,t)));function O(e,t){return Object.defineProperty(e.bind(t),"__original",{value:e})}function m(e,t,r=!1){let n,i=!0,o="";n=c(e)?e:{type:e};const a=b(n)?n._vueTypes_name+" - ":"";if(g(n)&&null!==n.type){if(void 0===n.type||!0===n.type)return i;if(!n.required&&void 0===t)return i;v(n.type)?(i=n.type.some(e=>!0===m(e,t,!0)),o=n.type.map(e=>l(e)).join(" or ")):(o=l(n),i="Array"===o?v(t):"Object"===o?c(t):"String"===o||"Number"===o||"Boolean"===o||"Function"===o?function(e){if(null==e)return "";const t=e.constructor.toString().match(u);return t?t[1]:""}(t)===o:t instanceof n.type);}if(!i){const e=`${a}value "${t}" should be of type "${o}"`;return !1===r?(d(e),!1):e}if(p(n,"validator")&&h$1(n.validator)){const e=d,o=[];if(d=e=>{o.push(e);},i=n.validator(t),d=e,!i){const e=(o.length>1?"* ":"")+o.join("\n* ");return o.length=0,!1===r?(d(e),i):e}}return i}function j(e,t){const r=Object.defineProperties(t,{_vueTypes_name:{value:e,writable:!0},isRequired:{get(){return this.required=!0,this}},def:{value(e){return void 0===e?(p(this,"default")&&delete this.default,this):h$1(e)||!0===m(this,e,!0)?(this.default=v(e)?()=>[...e]:c(e)?()=>Object.assign({},e):e,this):(d(`${this._vueTypes_name} - invalid default value: "${e}"`),this)}}}),{validator:n}=r;return h$1(n)&&(r.validator=O(n,r)),r}function _(e,t){const r=j(e,t);return Object.defineProperty(r,"validate",{value(e){return h$1(this.validator)&&d(`${this._vueTypes_name} - calling .validate() will overwrite the current custom validator function. Validator info:\n${JSON.stringify(this)}`),this.validator=O(e,this),this}})}function T(e,t,n){const o=function(e){const t={};return Object.getOwnPropertyNames(e).forEach(r=>{t[r]=Object.getOwnPropertyDescriptor(e,r);}),Object.defineProperties({},t)}(t);if(o._vueTypes_name=e,!c(n))return o;const{validator:a}=n,s=r(n,i);if(h$1(a)){let{validator:e}=o;e&&(e=null!==(l=(u=e).__original)&&void 0!==l?l:u),o.validator=O(e?function(t){return e.call(this,t)&&a.call(this,t)}:a,o);}var u,l;return Object.assign(o,s)}function $(e){return e.replace(/^(?!\s*$)/gm,"  ")}const w=()=>_("any",{}),P=()=>_("function",{type:Function}),x=()=>_("boolean",{type:Boolean}),E=()=>_("string",{type:String}),N=()=>_("number",{type:Number}),q=()=>_("array",{type:Array}),A=()=>_("object",{type:Object}),V=()=>j("integer",{type:Number,validator:e=>y(e)}),S=()=>j("symbol",{validator:e=>"symbol"==typeof e});function k(e,t="custom validation failed"){if("function"!=typeof e)throw new TypeError("[VueTypes error]: You must provide a function as argument");return j(e.name||"<<anonymous function>>",{type:null,validator(r){const n=e(r);return n||d(`${this._vueTypes_name} - ${t}`),n}})}function D(e){if(!v(e))throw new TypeError("[VueTypes error]: You must provide an array as argument.");const t=`oneOf - value should be one of "${e.join('", "')}".`,r=e.reduce((e,t)=>{if(null!=t){const r=t.constructor;-1===e.indexOf(r)&&e.push(r);}return e},[]);return j("oneOf",{type:r.length>0?r:void 0,validator(r){const n=-1!==e.indexOf(r);return n||d(t),n}})}function L(e){if(!v(e))throw new TypeError("[VueTypes error]: You must provide an array as argument");let t=!1,r=[];for(let n=0;n<e.length;n+=1){const i=e[n];if(g(i)){if(b(i)&&"oneOf"===i._vueTypes_name&&i.type){r=r.concat(i.type);continue}if(h$1(i.validator)&&(t=!0),!0===i.type||!i.type){d('oneOfType - invalid usage of "true" or "null" as types.');continue}r=r.concat(i.type);}else r.push(i);}r=r.filter((e,t)=>r.indexOf(e)===t);const n=r.length>0?r:null;return j("oneOfType",t?{type:n,validator(t){const r=[],n=e.some(e=>{const n=m(b(e)&&"oneOf"===e._vueTypes_name?e.type||null:e,t,!0);return "string"==typeof n&&r.push(n),!0===n});return n||d(`oneOfType - provided value does not match any of the ${r.length} passed-in validators:\n${$(r.join("\n"))}`),n}}:{type:n})}function F(e){return j("arrayOf",{type:Array,validator(t){let r="";const n=t.every(t=>(r=m(e,t,!0),!0===r));return n||d(`arrayOf - value validation error:\n${$(r)}`),n}})}function Y(e){return j("instanceOf",{type:e})}function B(e){return j("objectOf",{type:Object,validator(t){let r="";const n=Object.keys(t).every(n=>(r=m(e,t[n],!0),!0===r));return n||d(`objectOf - value validation error:\n${$(r)}`),n}})}function I(e){const t=Object.keys(e),r=t.filter(t=>{var r;return !(null===(r=e[t])||void 0===r||!r.required)}),n=j("shape",{type:Object,validator(n){if(!c(n))return !1;const i=Object.keys(n);if(r.length>0&&r.some(e=>-1===i.indexOf(e))){const e=r.filter(e=>-1===i.indexOf(e));return d(1===e.length?`shape - required property "${e[0]}" is not defined.`:`shape - required properties "${e.join('", "')}" are not defined.`),!1}return i.every(r=>{if(-1===t.indexOf(r))return !0===this._vueTypes_isLoose||(d(`shape - shape definition does not include a "${r}" property. Allowed keys: "${t.join('", "')}".`),!1);const i=m(e[r],n[r],!0);return "string"==typeof i&&d(`shape - "${r}" property validation error:\n ${$(i)}`),!0===i})}});return Object.defineProperty(n,"_vueTypes_isLoose",{writable:!0,value:!1}),Object.defineProperty(n,"loose",{get(){return this._vueTypes_isLoose=!0,this}}),n}const J=["name","validate","getter"],M=/*#__PURE__*/(()=>{var e,t;return t=e=class{static get any(){return w()}static get func(){return P().def(this.defaults.func)}static get bool(){return x().def(this.defaults.bool)}static get string(){return E().def(this.defaults.string)}static get number(){return N().def(this.defaults.number)}static get array(){return q().def(this.defaults.array)}static get object(){return A().def(this.defaults.object)}static get integer(){return V().def(this.defaults.integer)}static get symbol(){return S()}static extend(e){if(v(e))return e.forEach(e=>this.extend(e)),this;const{name:t,validate:n=!1,getter:i=!1}=e,o=r(e,J);if(p(this,t))throw new TypeError(`[VueTypes error]: Type "${t}" already defined`);const{type:a}=o;if(b(a))return delete o.type,Object.defineProperty(this,t,i?{get:()=>T(t,a,o)}:{value(...e){const r=T(t,a,o);return r.validator&&(r.validator=r.validator.bind(r,...e)),r}});let s;return s=i?{get(){const e=Object.assign({},o);return n?_(t,e):j(t,e)},enumerable:!0}:{value(...e){const r=Object.assign({},o);let i;return i=n?_(t,r):j(t,r),r.validator&&(i.validator=r.validator.bind(i,...e)),i},enumerable:!0},Object.defineProperty(this,t,s)}},e.defaults={},e.sensibleDefaults=void 0,e.config=n,e.custom=k,e.oneOf=D,e.instanceOf=Y,e.oneOfType=L,e.arrayOf=F,e.objectOf=B,e.shape=I,e.utils={validate:(e,t)=>!0===m(t,e,!0),toType:(e,t,r=!1)=>r?_(e,t):j(e,t)},t})();function R(e={func:()=>{},bool:!0,string:"",number:0,array:()=>[],object:()=>({}),integer:0}){var r,n;return n=r=class extends M{static get sensibleDefaults(){return t({},this.defaults)}static set sensibleDefaults(r){this.defaults=!1!==r?t({},!0!==r?r:e):{};}},r.defaults=t({},e),n}class z extends(R()){}
+  function t(){return t=Object.assign||function(e){for(var t=1;t<arguments.length;t++){var r=arguments[t];for(var n in r)Object.prototype.hasOwnProperty.call(r,n)&&(e[n]=r[n]);}return e},t.apply(this,arguments)}function r(e,t){if(null==e)return {};var r,n,i={},o=Object.keys(e);for(n=0;n<o.length;n++)t.indexOf(r=o[n])>=0||(i[r]=e[r]);return i}const n={silent:!1,logLevel:"warn"},i=["validator"],o=Object.prototype,a=o.toString,s=o.hasOwnProperty,u=/^\s*function (\w+)/;function l(e){var t;const r=null!==(t=null==e?void 0:e.type)&&void 0!==t?t:e;if(r){const e=r.toString().match(u);return e?e[1]:""}return ""}const c=isPlainObject,f=e=>e;let d=f;const p=(e,t)=>s.call(e,t),y=Number.isInteger||function(e){return "number"==typeof e&&isFinite(e)&&Math.floor(e)===e},v=Array.isArray||function(e){return "[object Array]"===a.call(e)},h=e=>"[object Function]"===a.call(e),b=e=>c(e)&&p(e,"_vueTypes_name"),g=e=>c(e)&&(p(e,"type")||["_vueTypes_name","validator","default","required"].some(t=>p(e,t)));function O(e,t){return Object.defineProperty(e.bind(t),"__original",{value:e})}function m(e,t,r=!1){let n,i=!0,o="";n=c(e)?e:{type:e};const a=b(n)?n._vueTypes_name+" - ":"";if(g(n)&&null!==n.type){if(void 0===n.type||!0===n.type)return i;if(!n.required&&void 0===t)return i;v(n.type)?(i=n.type.some(e=>!0===m(e,t,!0)),o=n.type.map(e=>l(e)).join(" or ")):(o=l(n),i="Array"===o?v(t):"Object"===o?c(t):"String"===o||"Number"===o||"Boolean"===o||"Function"===o?function(e){if(null==e)return "";const t=e.constructor.toString().match(u);return t?t[1]:""}(t)===o:t instanceof n.type);}if(!i){const e=`${a}value "${t}" should be of type "${o}"`;return !1===r?(d(e),!1):e}if(p(n,"validator")&&h(n.validator)){const e=d,o=[];if(d=e=>{o.push(e);},i=n.validator(t),d=e,!i){const e=(o.length>1?"* ":"")+o.join("\n* ");return o.length=0,!1===r?(d(e),i):e}}return i}function j(e,t){const r=Object.defineProperties(t,{_vueTypes_name:{value:e,writable:!0},isRequired:{get(){return this.required=!0,this}},def:{value(e){return void 0===e?(p(this,"default")&&delete this.default,this):h(e)||!0===m(this,e,!0)?(this.default=v(e)?()=>[...e]:c(e)?()=>Object.assign({},e):e,this):(d(`${this._vueTypes_name} - invalid default value: "${e}"`),this)}}}),{validator:n}=r;return h(n)&&(r.validator=O(n,r)),r}function _(e,t){const r=j(e,t);return Object.defineProperty(r,"validate",{value(e){return h(this.validator)&&d(`${this._vueTypes_name} - calling .validate() will overwrite the current custom validator function. Validator info:\n${JSON.stringify(this)}`),this.validator=O(e,this),this}})}function T(e,t,n){const o=function(e){const t={};return Object.getOwnPropertyNames(e).forEach(r=>{t[r]=Object.getOwnPropertyDescriptor(e,r);}),Object.defineProperties({},t)}(t);if(o._vueTypes_name=e,!c(n))return o;const{validator:a}=n,s=r(n,i);if(h(a)){let{validator:e}=o;e&&(e=null!==(l=(u=e).__original)&&void 0!==l?l:u),o.validator=O(e?function(t){return e.call(this,t)&&a.call(this,t)}:a,o);}var u,l;return Object.assign(o,s)}function $(e){return e.replace(/^(?!\s*$)/gm,"  ")}const w=()=>_("any",{}),P=()=>_("function",{type:Function}),x=()=>_("boolean",{type:Boolean}),E=()=>_("string",{type:String}),N=()=>_("number",{type:Number}),q=()=>_("array",{type:Array}),A=()=>_("object",{type:Object}),V=()=>j("integer",{type:Number,validator:e=>y(e)}),S=()=>j("symbol",{validator:e=>"symbol"==typeof e});function k(e,t="custom validation failed"){if("function"!=typeof e)throw new TypeError("[VueTypes error]: You must provide a function as argument");return j(e.name||"<<anonymous function>>",{type:null,validator(r){const n=e(r);return n||d(`${this._vueTypes_name} - ${t}`),n}})}function D(e){if(!v(e))throw new TypeError("[VueTypes error]: You must provide an array as argument.");const t=`oneOf - value should be one of "${e.join('", "')}".`,r=e.reduce((e,t)=>{if(null!=t){const r=t.constructor;-1===e.indexOf(r)&&e.push(r);}return e},[]);return j("oneOf",{type:r.length>0?r:void 0,validator(r){const n=-1!==e.indexOf(r);return n||d(t),n}})}function L(e){if(!v(e))throw new TypeError("[VueTypes error]: You must provide an array as argument");let t=!1,r=[];for(let n=0;n<e.length;n+=1){const i=e[n];if(g(i)){if(b(i)&&"oneOf"===i._vueTypes_name&&i.type){r=r.concat(i.type);continue}if(h(i.validator)&&(t=!0),!0===i.type||!i.type){d('oneOfType - invalid usage of "true" or "null" as types.');continue}r=r.concat(i.type);}else r.push(i);}r=r.filter((e,t)=>r.indexOf(e)===t);const n=r.length>0?r:null;return j("oneOfType",t?{type:n,validator(t){const r=[],n=e.some(e=>{const n=m(b(e)&&"oneOf"===e._vueTypes_name?e.type||null:e,t,!0);return "string"==typeof n&&r.push(n),!0===n});return n||d(`oneOfType - provided value does not match any of the ${r.length} passed-in validators:\n${$(r.join("\n"))}`),n}}:{type:n})}function F(e){return j("arrayOf",{type:Array,validator(t){let r="";const n=t.every(t=>(r=m(e,t,!0),!0===r));return n||d(`arrayOf - value validation error:\n${$(r)}`),n}})}function Y(e){return j("instanceOf",{type:e})}function B(e){return j("objectOf",{type:Object,validator(t){let r="";const n=Object.keys(t).every(n=>(r=m(e,t[n],!0),!0===r));return n||d(`objectOf - value validation error:\n${$(r)}`),n}})}function I(e){const t=Object.keys(e),r=t.filter(t=>{var r;return !(null===(r=e[t])||void 0===r||!r.required)}),n=j("shape",{type:Object,validator(n){if(!c(n))return !1;const i=Object.keys(n);if(r.length>0&&r.some(e=>-1===i.indexOf(e))){const e=r.filter(e=>-1===i.indexOf(e));return d(1===e.length?`shape - required property "${e[0]}" is not defined.`:`shape - required properties "${e.join('", "')}" are not defined.`),!1}return i.every(r=>{if(-1===t.indexOf(r))return !0===this._vueTypes_isLoose||(d(`shape - shape definition does not include a "${r}" property. Allowed keys: "${t.join('", "')}".`),!1);const i=m(e[r],n[r],!0);return "string"==typeof i&&d(`shape - "${r}" property validation error:\n ${$(i)}`),!0===i})}});return Object.defineProperty(n,"_vueTypes_isLoose",{writable:!0,value:!1}),Object.defineProperty(n,"loose",{get(){return this._vueTypes_isLoose=!0,this}}),n}const J=["name","validate","getter"],M=/*#__PURE__*/(()=>{var e,t;return t=e=class{static get any(){return w()}static get func(){return P().def(this.defaults.func)}static get bool(){return x().def(this.defaults.bool)}static get string(){return E().def(this.defaults.string)}static get number(){return N().def(this.defaults.number)}static get array(){return q().def(this.defaults.array)}static get object(){return A().def(this.defaults.object)}static get integer(){return V().def(this.defaults.integer)}static get symbol(){return S()}static extend(e){if(v(e))return e.forEach(e=>this.extend(e)),this;const{name:t,validate:n=!1,getter:i=!1}=e,o=r(e,J);if(p(this,t))throw new TypeError(`[VueTypes error]: Type "${t}" already defined`);const{type:a}=o;if(b(a))return delete o.type,Object.defineProperty(this,t,i?{get:()=>T(t,a,o)}:{value(...e){const r=T(t,a,o);return r.validator&&(r.validator=r.validator.bind(r,...e)),r}});let s;return s=i?{get(){const e=Object.assign({},o);return n?_(t,e):j(t,e)},enumerable:!0}:{value(...e){const r=Object.assign({},o);let i;return i=n?_(t,r):j(t,r),r.validator&&(i.validator=r.validator.bind(i,...e)),i},enumerable:!0},Object.defineProperty(this,t,s)}},e.defaults={},e.sensibleDefaults=void 0,e.config=n,e.custom=k,e.oneOf=D,e.instanceOf=Y,e.oneOfType=L,e.arrayOf=F,e.objectOf=B,e.shape=I,e.utils={validate:(e,t)=>!0===m(t,e,!0),toType:(e,t,r=!1)=>r?_(e,t):j(e,t)},t})();function R(e={func:()=>{},bool:!0,string:"",number:0,array:()=>[],object:()=>({}),integer:0}){var r,n;return n=r=class extends M{static get sensibleDefaults(){return t({},this.defaults)}static set sensibleDefaults(r){this.defaults=!1!==r?t({},!0!==r?r:e):{};}},r.defaults=t({},e),n}class z extends(R()){}
 
   const propTypes = R({
     func: void 0,
@@ -30541,50 +30542,84 @@
         type: Object
       }
     },
-    setup(props, { slots }) {
-      const { schema, formProps } = vue.toRefs(props);
+
+    setup(props, {
+      slots
+    }) {
+      const {
+        schema,
+        formProps
+      } = vue.toRefs(props);
       const itemLabelWidthProp = useItemLabWidth(schema, formProps);
       const getValues = vue.computed(() => {
-        const { schema: schema2, formModel, allDefaultValues } = props;
+        const {
+          schema: schema2,
+          formModel,
+          allDefaultValues
+        } = props;
         return {
           field: schema2.field,
           schema: schema2,
           model: formModel,
-          values: {
-            ...formModel,
+          values: { ...formModel,
             ...allDefaultValues
           }
         };
       });
       const getComponentsProps = vue.computed(() => {
         var _a;
-        const { schema: schema2, formModel } = props;
-        const { componentProps = {} } = schema2;
+
+        const {
+          schema: schema2,
+          formModel
+        } = props;
+        const {
+          componentProps = {}
+        } = schema2;
+
         if (!isFunction$1(componentProps)) {
           return componentProps;
         }
-        return (_a = componentProps({ schema: schema2, formModel })) != null ? _a : {};
+
+        return (_a = componentProps({
+          schema: schema2,
+          formModel
+        })) != null ? _a : {};
       });
+
       function getShow() {
-        const { show, ifShow } = props.schema;
+        const {
+          show,
+          ifShow
+        } = props.schema;
         let isShow = true;
         let isIfShow = true;
+
         if (isBoolean(show)) {
           isShow = show;
         }
+
         if (isBoolean(ifShow)) {
           isIfShow = ifShow;
         }
+
         if (isFunction$1(show)) {
           isShow = show(vue.unref(getValues));
         }
+
         if (isFunction$1(ifShow)) {
           isIfShow = ifShow(vue.unref(getValues));
         }
-        return { isShow, isIfShow };
+
+        return {
+          isShow,
+          isIfShow
+        };
       }
+
       function handleRules() {
         var _a;
+
         const {
           rules: defRules = [],
           component,
@@ -30593,15 +30628,21 @@
           dynamicRules,
           required
         } = props.schema;
+
         if (isFunction$1(dynamicRules)) {
           return dynamicRules(vue.unref(getValues));
         }
+
         let rules = cloneDeep(defRules);
-        const { rulesMessageJoinLabel: globalRulesMessageJoinLabel = "" } = props.formProps;
+        const {
+          rulesMessageJoinLabel: globalRulesMessageJoinLabel = ""
+        } = props.formProps;
         const joinLabel = Reflect.has(props.schema, "rulesMessageJoinLabel") ? rulesMessageJoinLabel : globalRulesMessageJoinLabel;
         const defaultMsg = `${createPlaceholderMessage(component)}${joinLabel ? "" : label}`;
+
         function validator(rule, value) {
           const msg = rule.message || defaultMsg;
+
           if (value === void 0 || isNull(value)) {
             return Promise.reject(msg);
           } else if (Array.isArray(value) && value.length === 0) {
@@ -30611,88 +30652,120 @@
           } else if (typeof value === "object" && Reflect.has(value, "checked") && Reflect.has(value, "halfChecked") && Array.isArray(value.checked) && Array.isArray(value.halfChecked) && value.checked.length === 0 && value.halfChecked.length === 0) {
             return Promise.reject(msg);
           }
+
           return Promise.resolve();
         }
+
         const getRequired = isFunction$1(required) ? required(vue.unref(getValues)) : required;
+
         if ((!rules || rules.length === 0) && getRequired) {
-          rules = [{ required: getRequired, validator }];
+          rules = [{
+            required: getRequired,
+            validator
+          }];
         }
-        const requiredRuleIndex = rules.findIndex((rule) => Reflect.has(rule, "required") && !Reflect.has(rule, "validator"));
+
+        const requiredRuleIndex = rules.findIndex(rule => Reflect.has(rule, "required") && !Reflect.has(rule, "validator"));
+
         if (requiredRuleIndex !== -1) {
           const rule = rules[requiredRuleIndex];
-          const { isShow } = getShow();
+          const {
+            isShow
+          } = getShow();
+
           if (!isShow) {
             rule.required = false;
           }
+
           if (component) {
             if (!Reflect.has(rule, "type")) {
               rule.type = component === "InputNumber" ? "number" : "string";
             }
+
             rule.message = rule.message || defaultMsg;
+
             if (component.includes("Input") || component.includes("Textarea")) {
               rule.whitespace = true;
             }
+
             const valueFormat = (_a = vue.unref(getComponentsProps)) == null ? void 0 : _a.valueFormat;
             setComponentRuleType(rule, component, valueFormat);
           }
         }
-        const characterInx = rules.findIndex((val) => val.max);
+
+        const characterInx = rules.findIndex(val => val.max);
+
         if (characterInx !== -1 && !rules[characterInx].validator) {
           rules[characterInx].message = rules[characterInx].message || `\u5B57\u7B26\u6570\u5E94\u5C0F\u4E8E${rules[characterInx].max}\u4F4D`;
         }
+
         return rules;
       }
+
       function renderComponent() {
-        const { component, field, changeEvent = "change" } = props.schema;
+        const {
+          component,
+          field,
+          changeEvent = "change"
+        } = props.schema;
         const isCheck = component && ["Checkbox"].includes(component);
         let eventKey = `on${upperFirst$1(changeEvent)}`;
+
         if (["Input", "Slider"].includes(component)) {
           eventKey = "onInput";
         }
+
         const on = {
           [eventKey]: (...args) => {
             const [e] = args;
+
             if (propsData[eventKey]) {
               propsData[eventKey](...args);
             }
+
             const target = e ? e.target : null;
             const value = target ? isCheck ? target.checked : target.value : e;
             props.setFormModel(field, value);
           }
         };
         const Comp = componentMap.get(component);
-        let propsData = {
-          ...vue.unref(getComponentsProps)
+        let propsData = { ...vue.unref(getComponentsProps)
         };
+
         if (!["ColorPicker"].includes(component)) {
-          propsData = Object.assign(propsData, { clearable: true });
+          propsData = Object.assign(propsData, {
+            clearable: true
+          });
         }
+
         const bindValue = {
           [isCheck ? "checked" : "model-value"]: handleFormItemValue(props.schema, props.formModel[field])
         };
-        const compAttr = {
-          ...propsData,
+        const compAttr = { ...propsData,
           ...on,
           ...bindValue
         };
+
         if (["RadioGroup", "CheckboxGroup", "Select"].includes(component) && component && propsData.options && isArray$2(propsData.options)) {
           const options = propsData.options;
+
           const getContent = (component2, options2) => {
             return renderGroup(component2, options2);
           };
-          return /* @__PURE__ */ h(Comp, {
-            ...compAttr
+
+          return /* @__PURE__ */React.createElement(Comp, { ...compAttr
           }, getContent(component, options));
         }
-        return /* @__PURE__ */ h(Comp, {
-          ...compAttr
+
+        return /* @__PURE__ */React.createElement(Comp, { ...compAttr
         });
       }
+
       function renderGroup(component, options) {
         if (component === "Select") {
           const CompItem = componentMap.get("Option");
-          return options.map((val) => {
-            return /* @__PURE__ */ h(CompItem, {
+          return options.map(val => {
+            return /* @__PURE__ */React.createElement(CompItem, {
               label: val.label,
               key: val.value,
               value: val.value
@@ -30701,50 +30774,76 @@
         } else {
           const componentName = component.replace(/w*Group$/, "");
           const CompItem = componentMap.get(componentName);
-          const CompList = options.map((val) => {
-            return /* @__PURE__ */ h(CompItem, {
+          const CompList = options.map(val => {
+            return /* @__PURE__ */React.createElement(CompItem, {
               label: val.value
             }, val.label);
           });
           return CompList;
         }
       }
+
       function renderItem() {
-        const { field, label, itemProps, slot } = props.schema;
-        const { labelCol, wrapperCol } = vue.unref(itemLabelWidthProp);
+        const {
+          field,
+          label,
+          itemProps,
+          slot
+        } = props.schema;
+        const {
+          labelCol,
+          wrapperCol
+        } = vue.unref(itemLabelWidthProp);
+
         const getContent = () => {
           return slot ? getSlot(slots, slot, vue.unref(getValues)) : renderComponent();
         };
-        return /* @__PURE__ */ h(ElFormItem, {
+
+        return /* @__PURE__ */React.createElement(ElFormItem, {
           prop: field,
           label,
           ...itemProps,
           ...wrapperCol,
           labelWidth: labelCol,
           rules: handleRules()
-        }, /* @__PURE__ */ h("div", {
+        }, /* @__PURE__ */React.createElement("div", {
           style: "display: flex;height: 100%;align-items: center;"
-        }, /* @__PURE__ */ h("div", {
+        }, /* @__PURE__ */React.createElement("div", {
           style: "flex: 1"
         }, getContent())));
       }
+
       return () => {
-        const { component, colProps = {} } = props.schema;
+        const {
+          component,
+          colProps = {}
+        } = props.schema;
+
         if (!componentMap.has(component)) {
           return null;
         }
-        const { baseColProps = {} } = props.formProps;
-        const realColProps = { ...baseColProps, ...colProps };
-        const { isIfShow, isShow } = getShow();
+
+        const {
+          baseColProps = {}
+        } = props.formProps;
+        const realColProps = { ...baseColProps,
+          ...colProps
+        };
+        const {
+          isIfShow,
+          isShow
+        } = getShow();
+
         const getContent = () => {
           return renderItem();
         };
-        return isIfShow && /* @__PURE__ */ h(ElCol, {
-          ...realColProps,
+
+        return isIfShow && /* @__PURE__ */React.createElement(ElCol, { ...realColProps,
           "v-show": isShow
         }, getContent());
       };
     }
+
   });
 
   script$2.__file = "packages/components/form/src/components/FormItem.vue";

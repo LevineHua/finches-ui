@@ -3,7 +3,7 @@
  * @Author: 华松林
  * @Date: 2021-11-29 18:06:33
  * @LastEditors: 华松林
- * @LastEditTime: 2021-12-01 15:16:21
+ * @LastEditTime: 2021-12-01 15:27:10
  * @FilePath: /finches-ui/build/modules.ts
  */
 import { rollup } from 'rollup'
@@ -14,6 +14,7 @@ import commonjs from '@rollup/plugin-commonjs'
 import esbuild from 'rollup-plugin-esbuild'
 import filesize from 'rollup-plugin-filesize'
 import glob from 'fast-glob'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 import { epRoot, pkgRoot } from './utils/paths'
 import { FinchesUiAlias } from './plugins/finches-ui-alias'
 import { generateExternal, writeBundles } from './utils/rollup'
@@ -43,11 +44,11 @@ export const buildModules = async () => {
       esbuild({
         sourceMap: true,
         target: 'es2018',
-        jsxFactory: 'h',
-        jsxFragment: 'Fragment',
-        jsxInject: "import { h } from 'vue'",
+        // jsxFactory: 'h',
+        // jsxFragment: 'Fragment',
       }),
       filesize({ reporter }),
+      vueJsx(),
     ],
     external: await generateExternal({ full: false }),
     treeshake: false,
