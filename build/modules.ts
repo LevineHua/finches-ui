@@ -3,7 +3,7 @@
  * @Author: 华松林
  * @Date: 2021-11-29 18:06:33
  * @LastEditors: 华松林
- * @LastEditTime: 2021-12-01 15:31:46
+ * @LastEditTime: 2021-12-01 15:40:01
  * @FilePath: /finches-ui/build/modules.ts
  */
 import { rollup } from 'rollup'
@@ -45,7 +45,7 @@ export const buildModules = async () => {
         sourceMap: true,
         target: 'es2018',
         jsxFactory: 'h',
-        // jsxFragment: 'Fragment',
+        jsxFragment: 'Fragment',
       }),
       filesize({ reporter }),
       // vueJsx(),
