@@ -3,7 +3,7 @@
  * @Author: 华松林
  * @Date: 2021-08-23 10:58:42
  * @LastEditors: 华松林
- * @LastEditTime: 2021-11-30 17:08:32
+ * @LastEditTime: 2021-12-01 11:07:32
  * @FilePath: /finches-ui/packages/components/form/src/components/ApiSelect.vue
 -->
 <template>
@@ -26,6 +26,7 @@ import { propTypes } from '@finches-ui/utils/propTypes'
 import { isFunction } from '@finches-ui/utils/is'
 import { useRuleFormItem } from '../hooks/useFormItem'
 import { useAttrs } from '../hooks/useAttrs'
+import type { PropType } from 'vue'
 
 export default defineComponent({
   name: 'ApiSelect',
@@ -41,13 +42,13 @@ export default defineComponent({
     numberToString: propTypes.bool,
     api: {
       // eslint-disable-next-line no-undef
-      type: Function as PropType<(arg?: Recordable) => Promise<OptionsItem[]>>,
+      type: Function as PropType<(arg?: any) => Promise<any[]>>,
       default: null,
     },
     // api params
     params: {
       // eslint-disable-next-line no-undef
-      type: Object as PropType<Recordable>,
+      type: Object as PropType<any>,
       default: () => ({}),
     },
     resultField: propTypes.string.def(''),
@@ -56,7 +57,7 @@ export default defineComponent({
   },
   emits: ['options-change', 'change'],
   setup(props, { emit }) {
-    const options = ref([])
+    const options: any = ref([])
     const loading = ref(false)
     const isFirstLoad = ref(true)
     const emitData = ref<any[]>([])
@@ -67,7 +68,7 @@ export default defineComponent({
     const getOptions = computed(() => {
       const { labelField, valueField, numberToString } = props
 
-      return unref(options).reduce((prev, next) => {
+      return unref(options).reduce((prev: any, next) => {
         if (next) {
           const value = next[valueField]
           prev.push({
@@ -131,4 +132,3 @@ export default defineComponent({
   },
 })
 </script>
-<style lang="scss"></style>

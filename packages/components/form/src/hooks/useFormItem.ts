@@ -3,7 +3,7 @@
  * @Author: 华松林
  * @Date: 2021-08-23 15:11:14
  * @LastEditors: 华松林
- * @LastEditTime: 2021-11-30 17:17:20
+ * @LastEditTime: 2021-12-01 10:56:12
  * @FilePath: /finches-ui/packages/components/form/src/hooks/useFormItem.ts
  */
 import {
@@ -21,9 +21,9 @@ import { isEqual } from 'lodash-es'
 import type { UnwrapRef, Ref } from 'vue'
 
 // eslint-disable-next-line no-undef
-export function useRuleFormItem<T extends Recordable>(
-  props: T,
-  key: keyof T = 'value',
+export function useRuleFormItem(
+  props: any,
+  key: keyof any = 'value',
   changeEvent = 'change',
   emitData?: Ref<any[]>
 ) {
@@ -36,8 +36,8 @@ export function useRuleFormItem<T extends Recordable>(
 
   const defaultState = readonly(innerState)
 
-  const setState = (val: UnwrapRef<T[keyof T]>): void => {
-    innerState.value = val as T[keyof T]
+  const setState = (val: any): void => {
+    innerState.value = val
   }
 
   watchEffect(() => {
@@ -51,7 +51,7 @@ export function useRuleFormItem<T extends Recordable>(
     set(value) {
       if (isEqual(value, defaultState.value)) return
 
-      innerState.value = value as T[keyof T]
+      innerState.value = value
       nextTick(() => {
         emit?.(changeEvent, value, ...(toRaw(unref(emitData)) || []))
       })

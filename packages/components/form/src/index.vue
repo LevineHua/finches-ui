@@ -3,7 +3,7 @@
  * @Author: 华松林
  * @Date: 2021-08-11 16:59:37
  * @LastEditors: 华松林
- * @LastEditTime: 2021-11-30 17:36:07
+ * @LastEditTime: 2021-12-01 14:29:17
  * @FilePath: /finches-ui/packages/components/form/src/index.vue
 -->
 <template>
@@ -59,14 +59,17 @@ import { createFormContext } from './hooks/useFormContext'
 import { basicProps } from './props'
 import type moment from 'moment'
 import type { FormSchema } from './types/form'
+import type { Nullable } from '@finches-ui/utils/types'
+import type { InjectionKey } from 'vue'
 
 export default defineComponent({
-  name: 'BasicForm',
+  name: 'CbForm',
   components: { FormItem, FormAction, ElForm, ElRow },
   props: basicProps,
   emits: ['register', 'reset', 'submit'],
   setup(props, { emit, attrs }) {
-    const modalFn = useContext()
+    const key: InjectionKey<any> = Symbol()
+    const modalFn = useContext<any>(key)
     const formElRef = ref(null)
     const formModel = reactive({})
     const propsRef = ref({})
@@ -100,7 +103,8 @@ export default defineComponent({
 
     const getSchema = computed(() => {
       const schemas = unref(schemaRef) || unref(getProps)?.schemas || []
-      for (const schema of schemas) {
+      for (const item of schemas) {
+        const schema: any = item
         const { defaultValue, component } = schema
         if (defaultValue && dateItemType.includes(component)) {
           if (!Array.isArray(defaultValue)) {
@@ -118,11 +122,11 @@ export default defineComponent({
     })
 
     const { handleFormValues, initDefault } = useFormValues({
-      getProps,
       defaultValueRef,
       getSchema,
       formModel,
-    })
+      getProps,
+    } as any)
 
     const {
       handleSubmit,
@@ -140,7 +144,7 @@ export default defineComponent({
       defaultValueRef,
       formElRef,
       handleFormValues,
-    })
+    } as any)
 
     createFormContext({
       resetAction: resetFields,
@@ -182,7 +186,7 @@ export default defineComponent({
 
       // console.log(formModel)
 
-      const { validateTrigger } = unref(getBindValue)
+      const { validateTrigger } = unref(getBindValue) as any
 
       if (!validateTrigger || validateTrigger === 'change') {
         validateFields([key]).catch((_) => {})
@@ -220,11 +224,4 @@ export default defineComponent({
   },
 })
 </script>
-<style lang="scss">
-.el-date-editor--daterange.el-input,
-.el-date-editor--daterange.el-input__inner,
-.el-date-editor--timerange.el-input,
-.el-date-editor--timerange.el-input__inner {
-  width: 100%;
-}
-</style>
+<style></style>

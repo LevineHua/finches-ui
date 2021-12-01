@@ -3,7 +3,7 @@
  * @Author: 华松林
  * @Date: 2021-11-29 16:09:19
  * @LastEditors: 华松林
- * @LastEditTime: 2021-11-30 17:16:52
+ * @LastEditTime: 2021-12-01 11:23:46
  * @FilePath: /finches-ui/packages/utils/types.ts
  */
 import type { CSSProperties, Plugin } from 'vue'
@@ -52,7 +52,7 @@ export type Indexable<T> = {
 
 export type Hash<T> = Indexable<T>
 
-export type TimeoutHandle = ReturnType<typeof global.setTimeout>
+// export type TimeoutHandle = ReturnType<typeof global.setTimeout>
 
 export type ComponentSize = 'large' | 'medium' | 'small' | 'mini'
 

@@ -3,7 +3,7 @@
  * @Author: 华松林
  * @Date: 2021-08-12 15:14:22
  * @LastEditors: 华松林
- * @LastEditTime: 2021-11-30 17:43:15
+ * @LastEditTime: 2021-12-01 11:29:09
  * @FilePath: /finches-ui/packages/components/form/src/components/FormItem.vue
 -->
 <script lang="tsx">
@@ -76,7 +76,7 @@ export default defineComponent({
       return componentProps({ schema, formModel }) ?? {}
     })
 
-    function getShow(): { isShow: boolean; isIfShow: boolean } {
+    function getShow() {
       const { show, ifShow } = props.schema
       let isShow = true
       let isIfShow = true
@@ -120,7 +120,7 @@ export default defineComponent({
         joinLabel ? '' : label
       }`
 
-      function validator(rule: any, value: any) {
+      function validator(rule, value) {
         const msg = rule.message || defaultMsg
         if (value === undefined || isNull(value)) {
           // 空值
@@ -154,7 +154,7 @@ export default defineComponent({
         rules = [{ required: getRequired, validator }]
       }
 
-      const requiredRuleIndex: number = rules.findIndex(
+      const requiredRuleIndex = rules.findIndex(
         (rule) =>
           Reflect.has(rule, 'required') && !Reflect.has(rule, 'validator')
       )
@@ -252,7 +252,7 @@ export default defineComponent({
         isArray(propsData.options)
       ) {
         const options = propsData.options
-        const getContent = (component: string, options) => {
+        const getContent = (component, options) => {
           return renderGroup(component, options)
         }
         return <Comp {...compAttr}>{getContent(component, options)}</Comp>
@@ -262,7 +262,7 @@ export default defineComponent({
     }
 
     // 生成 RadioGroup/CheckboxGroup 的子组件
-    function renderGroup(component: string, options) {
+    function renderGroup(component, options) {
       if (component === 'Select') {
         const CompItem = componentMap.get('Option')
         return options.map((val) => {

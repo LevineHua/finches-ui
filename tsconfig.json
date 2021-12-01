@@ -4,7 +4,7 @@
     "module": "ES6",
     "target": "ES6",
     "noImplicitAny": false,
-    "declaration": true,
+    "declaration": false,
     "moduleResolution": "Node",
     "esModuleInterop": true,
     "jsx": "preserve",
@@ -13,8 +13,14 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    // "types": ["vite/client", "node", "webpack-env"],
+    "typeRoots": ["./node_modules/@types/", "./types"]
   },
-  "include": ["packages"],
-  "exclude": ["node_modules", "**/__test?__", "**/dist"]
+  "include": [
+    "packages",
+    "types/**/*.d.ts",
+    "types/**/*.ts"
+  ],
+  "exclude": ["node_modules", "**/__test?__", "**/dist", "typings"]
 }

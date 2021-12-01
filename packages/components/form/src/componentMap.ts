@@ -3,7 +3,7 @@
  * @Author: 华松林
  * @Date: 2021-08-12 17:13:14
  * @LastEditors: 华松林
- * @LastEditTime: 2021-11-30 17:18:59
+ * @LastEditTime: 2021-12-01 10:23:05
  * @FilePath: /finches-ui/packages/components/form/src/componentMap.ts
  */
 import {
@@ -19,7 +19,7 @@ import {
   ElSwitch,
   ElTimePicker,
   // ElTreeSelect,
-  ElSlider,
+  // ElSlider,
   ElRate,
   ElRadio,
   ElOption,
@@ -51,7 +51,7 @@ componentMap.set('RadioGroup', ElRadioGroup)
 componentMap.set('Checkbox', ElCheckbox)
 componentMap.set('CheckboxGroup', ElCheckboxGroup)
 componentMap.set('Cascader', ElCascader)
-componentMap.set('Slider', ElSlider)
+// componentMap.set('Slider', ElSlider)
 componentMap.set('Rate', ElRate)
 
 componentMap.set('DatePicker', ElDatePicker)

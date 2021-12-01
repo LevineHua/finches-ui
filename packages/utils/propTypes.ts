@@ -3,7 +3,7 @@
  * @Author: 华松林
  * @Date: 2021-08-17 09:57:40
  * @LastEditors: 华松林
- * @LastEditTime: 2021-11-30 17:22:28
+ * @LastEditTime: 2021-12-01 11:28:06
  * @FilePath: /finches-ui/packages/utils/propTypes.ts
  */
 import { createTypes } from 'vue-types'
@@ -41,4 +41,19 @@ propTypes.extend([
     type: undefined,
   },
 ])
+
+// const propTypes = [
+//   {
+//     name: 'style',
+//     getter: true,
+//     type: [String, Object],
+//     default: undefined,
+//   },
+//   {
+//     name: 'VNodeChild',
+//     getter: true,
+//     type: undefined,
+//   },
+// ]
+
 export { propTypes }

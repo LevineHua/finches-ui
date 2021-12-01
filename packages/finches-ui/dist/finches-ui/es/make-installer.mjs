@@ -1,4 +1,4 @@
-import { setConfig } from './utils/config.mjs';
+import { setConfig } from './packages/utils/config.mjs';
 import { version } from './version.mjs';
 
 const makeInstaller = (components = []) => {

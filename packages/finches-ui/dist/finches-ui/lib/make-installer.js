@@ -2,7 +2,7 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-var config = require('./utils/config.js');
+var config = require('./packages/utils/config.js');
 var version = require('./version.js');
 
 const makeInstaller = (components = []) => {

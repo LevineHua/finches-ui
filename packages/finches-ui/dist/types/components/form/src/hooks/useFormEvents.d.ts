@@ -6,7 +6,6 @@ interface UseFormActionContext {
     formModel: any;
     defaultValueRef: Ref;
     formElRef: Ref;
-    schemaRef: Ref;
     handleFormValues: Function;
 }
 export declare function useFormEvents({ emit, getProps, formModel, getSchema, defaultValueRef, formElRef, handleFormValues, }: UseFormActionContext): {

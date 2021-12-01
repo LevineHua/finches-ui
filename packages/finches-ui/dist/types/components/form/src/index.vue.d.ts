@@ -72,7 +72,7 @@ declare const _default: import("vue").DefineComponent<{
         baseRowStyle: import("vue").CSSProperties | undefined;
         baseColProps: Record<string, any> | undefined;
     }>;
-    getSchema: import("vue").ComputedRef<any>;
+    getSchema: import("vue").ComputedRef<unknown[]>;
     formElRef: import("vue").Ref<null>;
     formModel: {};
     getBindValue: import("vue").ComputedRef<{

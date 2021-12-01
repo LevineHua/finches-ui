@@ -3,7 +3,7 @@
  * @Author: 华松林
  * @Date: 2021-08-17 15:56:51
  * @LastEditors: 华松林
- * @LastEditTime: 2021-11-30 17:36:54
+ * @LastEditTime: 2021-12-01 14:30:18
  * @FilePath: /finches-ui/packages/components/form/src/components/FormAction.vue
 -->
 <template>
@@ -102,4 +102,3 @@ export default defineComponent({
   },
 })
 </script>
-<style lang="scss"></style>

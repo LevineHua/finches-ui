@@ -3,7 +3,7 @@
  * @Author: 华松林
  * @Date: 2021-08-18 18:06:48
  * @LastEditors: 华松林
- * @LastEditTime: 2021-11-30 17:17:43
+ * @LastEditTime: 2021-12-01 10:56:22
  * @FilePath: /finches-ui/packages/components/form/src/types/form.ts
  */
 import type { ComponentType } from './index'
@@ -11,9 +11,9 @@ import type { ComponentType } from './index'
 export interface RenderCallbackParams {
   schema: FormSchema
   // eslint-disable-next-line no-undef
-  values: Recordable
+  values: any
   // eslint-disable-next-line no-undef
-  model: Recordable
+  model: any
   field: string
 }
 

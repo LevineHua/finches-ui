@@ -1,3 +1,4 @@
+import type { PropType } from 'vue';
 declare const _default: import("vue").DefineComponent<{
     value: import("vue-types").VueTypeDef<string | number | unknown[] | {
         [key: string]: any;
@@ -6,11 +7,11 @@ declare const _default: import("vue").DefineComponent<{
         default: boolean;
     };
     api: {
-        type: PropType<(arg?: any) => Promise<OptionsItem[]>>;
+        type: PropType<(arg?: any) => Promise<any[]>>;
         default: null;
     };
     params: {
-        type: PropType<Recordable>;
+        type: PropType<any>;
         default: () => {};
     };
     resultField: import("vue-types").VueTypeValidableDef<string> & {
@@ -29,10 +30,10 @@ declare const _default: import("vue").DefineComponent<{
         default: string;
     };
 }, {
-    getOptions: import("vue").ComputedRef<never[]>;
+    getOptions: import("vue").ComputedRef<any>;
     emitChange: () => void;
     state: any;
-    attrs: {} | import("vue").Ref<Recordable>;
+    attrs: {} | import("vue").Ref<any>;
     handleChange: (_: any, ...args: any[]) => void;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("change" | "options-change")[], "change" | "options-change", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     value?: unknown;
@@ -44,8 +45,8 @@ declare const _default: import("vue").DefineComponent<{
     valueField?: unknown;
 } & {
     numberToString: boolean;
-    api: any;
-    params: any;
+    api: (arg?: any) => Promise<any[]>;
+    params: {};
     resultField: string;
     labelField: string;
     valueField: string;
@@ -58,8 +59,8 @@ declare const _default: import("vue").DefineComponent<{
     "onOptions-change"?: ((...args: any[]) => any) | undefined;
 }, {
     numberToString: boolean;
-    api: any;
-    params: any;
+    api: (arg?: any) => Promise<any[]>;
+    params: {};
     resultField: string;
     labelField: string;
     valueField: string;

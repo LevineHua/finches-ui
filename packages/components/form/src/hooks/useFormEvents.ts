@@ -3,7 +3,7 @@
  * @Author: 华松林
  * @Date: 2021-08-13 15:10:13
  * @LastEditors: 华松林
- * @LastEditTime: 2021-11-30 17:16:13
+ * @LastEditTime: 2021-12-01 11:22:40
  * @FilePath: /finches-ui/packages/components/form/src/hooks/useFormEvents.ts
  */
 
@@ -20,7 +20,6 @@ interface UseFormActionContext {
   formModel: any
   defaultValueRef: Ref
   formElRef: Ref
-  schemaRef: Ref
   handleFormValues: Function
 }
 
@@ -154,7 +153,7 @@ export function useFormEvents({
       const res = handleFormValues(values)
 
       emit('submit', res)
-    } catch (error) {
+    } catch (error: any) {
       throw new Error(error)
     }
   }

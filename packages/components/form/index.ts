@@ -3,14 +3,14 @@
  * @Author: 华松林
  * @Date: 2021-11-30 16:42:20
  * @LastEditors: 华松林
- * @LastEditTime: 2021-11-30 16:59:04
+ * @LastEditTime: 2021-12-01 09:45:54
  * @FilePath: /finches-ui/packages/components/form/index.ts
  */
 import { withInstall } from '@finches-ui/utils/with-install'
 
 import Form from './src/index.vue'
 
-export const CbForm = withInstall(Form)
+export const CbForm: any = withInstall(Form)
 
 export * from './src/types/form'
 

@@ -3,7 +3,7 @@
  * @Author: 华松林
  * @Date: 2021-08-23 15:15:14
  * @LastEditors: 华松林
- * @LastEditTime: 2021-11-30 17:14:59
+ * @LastEditTime: 2021-12-01 10:55:26
  * @FilePath: /finches-ui/packages/components/form/src/hooks/useAttrs.ts
  */
 import { getCurrentInstance, reactive, shallowRef, watchEffect } from 'vue'
@@ -17,12 +17,13 @@ const DEFAULT_EXCLUDE_KEYS = ['class', 'style']
 const LISTENER_PREFIX = /^on[A-Z]/
 
 // eslint-disable-next-line no-undef
-export function entries<T>(obj: Recordable<T>): [string, T][] {
+export function entries<T>(obj: any): [string, T][] {
   return Object.keys(obj).map((key: string) => [key, obj[key]])
 }
 
 // eslint-disable-next-line no-undef
-export function useAttrs(params: Params = {}): Ref<Recordable> | {} {
+// eslint-disable-next-line @typescript-eslint/ban-types
+export function useAttrs(params: Params = {}): Ref<any> | {} {
   const instance = getCurrentInstance()
   if (!instance) return {}
 
@@ -44,7 +45,7 @@ export function useAttrs(params: Params = {}): Ref<Recordable> | {} {
 
       return acm
       // eslint-disable-next-line no-undef
-    }, {} as Recordable)
+    }, {})
 
     attrs.value = res
   })
