@@ -1,4 +1,4 @@
-/*! Finches Ui v0.0.0-dev.6 */
+/*! Finches Ui v0.0.0-dev.7 */
 
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('vue')) :
@@ -6,7 +6,7 @@
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.FinchesUi = {}, global.Vue));
 })(this, (function (exports, vue) { 'use strict';
 
-  const version$1 = "0.0.0-dev.6";
+  const version$1 = "0.0.0-dev.7";
 
   const makeInstaller = (components = []) => {
     const apps = [];

@@ -1,8 +1,8 @@
-/*! Finches Ui v0.0.0-dev.6 */
+/*! Finches Ui v0.0.0-dev.7 */
 
 import { defineComponent, openBlock, createElementBlock, renderSlot, createTextVNode, getCurrentInstance, computed, Comment, isVNode, Fragment, warn, inject, ref, unref, getCurrentScope, onScopeDispose, watch, mergeProps, createBlock, createVNode, shallowRef, nextTick, onMounted, onUpdated, resolveComponent, withDirectives, normalizeClass, normalizeStyle, createCommentVNode, createElementVNode, withCtx, resolveDynamicComponent, withModifiers, toDisplayString, vShow, onBeforeUnmount, toRef, Transition, provide, reactive, h as h$1, cloneVNode, onActivated, onDeactivated, Teleport, Text, resolveDirective, renderList, vModelCheckbox, toRefs, withKeys, vModelRadio, onBeforeUpdate, vModelText, watchEffect, toRaw, triggerRef, createSlots, readonly, normalizeProps, guardReactiveProps } from 'vue';
 
-const version$1 = "0.0.0-dev.6";
+const version$1 = "0.0.0-dev.7";
 
 const makeInstaller = (components = []) => {
   const apps = [];

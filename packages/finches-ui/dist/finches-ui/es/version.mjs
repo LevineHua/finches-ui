@@ -1,4 +1,4 @@
-const version = "0.0.0-dev.6";
+const version = "0.0.0-dev.7";
 
 export { version };
 //# sourceMappingURL=version.mjs.map
