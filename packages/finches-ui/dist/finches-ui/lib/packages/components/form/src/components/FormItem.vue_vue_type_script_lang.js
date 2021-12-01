@@ -182,11 +182,11 @@ var script = vue.defineComponent({
         const getContent = (component2, options2) => {
           return renderGroup(component2, options2);
         };
-        return /* @__PURE__ */ React.createElement(Comp, {
+        return /* @__PURE__ */ h(Comp, {
           ...compAttr
         }, getContent(component, options));
       }
-      return /* @__PURE__ */ React.createElement(Comp, {
+      return /* @__PURE__ */ h(Comp, {
         ...compAttr
       });
     }
@@ -194,7 +194,7 @@ var script = vue.defineComponent({
       if (component === "Select") {
         const CompItem = componentMap.componentMap.get("Option");
         return options.map((val) => {
-          return /* @__PURE__ */ React.createElement(CompItem, {
+          return /* @__PURE__ */ h(CompItem, {
             label: val.label,
             key: val.value,
             value: val.value
@@ -204,7 +204,7 @@ var script = vue.defineComponent({
         const componentName = component.replace(/w*Group$/, "");
         const CompItem = componentMap.componentMap.get(componentName);
         const CompList = options.map((val) => {
-          return /* @__PURE__ */ React.createElement(CompItem, {
+          return /* @__PURE__ */ h(CompItem, {
             label: val.value
           }, val.label);
         });
@@ -217,16 +217,16 @@ var script = vue.defineComponent({
       const getContent = () => {
         return slot ? tsxHelper.getSlot(slots, slot, vue.unref(getValues)) : renderComponent();
       };
-      return /* @__PURE__ */ React.createElement(index.ElFormItem, {
+      return /* @__PURE__ */ h(index.ElFormItem, {
         prop: field,
         label,
         ...itemProps,
         ...wrapperCol,
         labelWidth: labelCol,
         rules: handleRules()
-      }, /* @__PURE__ */ React.createElement("div", {
+      }, /* @__PURE__ */ h("div", {
         style: "display: flex;height: 100%;align-items: center;"
-      }, /* @__PURE__ */ React.createElement("div", {
+      }, /* @__PURE__ */ h("div", {
         style: "flex: 1"
       }, getContent())));
     }
@@ -241,7 +241,7 @@ var script = vue.defineComponent({
       const getContent = () => {
         return renderItem();
       };
-      return isIfShow && /* @__PURE__ */ React.createElement(index$1.ElCol, {
+      return isIfShow && /* @__PURE__ */ h(index$1.ElCol, {
         ...realColProps,
         "v-show": isShow
       }, getContent());

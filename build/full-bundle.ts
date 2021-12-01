@@ -3,7 +3,7 @@
  * @Author: 华松林
  * @Date: 2021-11-29 18:06:33
  * @LastEditors: 华松林
- * @LastEditTime: 2021-12-01 14:12:15
+ * @LastEditTime: 2021-12-01 15:09:57
  * @FilePath: /finches-ui/build/full-bundle.ts
  */
 import path from 'path'
@@ -41,6 +41,8 @@ export const buildFull = (minify: boolean) => async () => {
         minify,
         sourceMap: minify,
         target: 'es2018',
+        jsxFactory: 'h',
+        jsxFragment: 'Fragment',
       }),
       replace({
         'process.env.NODE_ENV': JSON.stringify('production'),
